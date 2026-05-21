@@ -13,10 +13,12 @@ import { cn } from "@/lib/cn";
 
 type Project = (typeof projects)[number];
 
-const actionButtonClassName = "h-11 min-w-[7rem] rounded-lg px-5";
-const repositoryButtonClassName = "h-11 min-w-[13.5rem] rounded-lg px-5";
+const actionButtonClassName =
+  "h-12 min-w-[7.5rem] flex-1 rounded-xl px-5 sm:flex-none sm:min-w-[8rem]";
+const repositoryButtonClassName =
+  "h-12 min-w-[7.5rem] flex-1 rounded-xl px-5 sm:flex-none sm:min-w-[8rem]";
 const secondaryButtonClassName =
-  "label-caps inline-flex h-11 min-w-[7rem] items-center justify-center rounded-lg border border-white/15 px-5 text-on-surface transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary";
+  "label-caps inline-flex h-12 min-w-[7.5rem] flex-1 items-center justify-center rounded-xl border border-white/15 px-5 text-on-surface transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary sm:flex-none sm:min-w-[8rem]";
 
 function ProjectDemoAction({ project }: { project: Project }) {
   if ("demoStatus" in project && project.demoStatus === "offline") {
@@ -26,7 +28,7 @@ function ProjectDemoAction({ project }: { project: Project }) {
         aria-disabled="true"
         aria-label={`Demo de ${project.title} no disponible`}
         className={cn(
-          "label-caps relative inline-flex h-11 min-w-[7rem] items-center justify-center rounded-lg px-5",
+          "label-caps relative inline-flex h-12 min-w-[7.5rem] flex-1 items-center justify-center rounded-xl px-5 sm:flex-none sm:min-w-[8rem]",
           "border border-white/15 bg-white/[0.08] text-on-surface-variant shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
         )}
       >
@@ -68,7 +70,14 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="flex flex-1 flex-col p-7 md:p-8">
           <h3 className="text-3xl font-bold tracking-[-0.05em] text-on-surface">
-            {project.title}
+            <button
+              type="button"
+              onClick={() => setIsDetailOpen(true)}
+              aria-label={`Ver detalle de ${project.title}`}
+              className="text-left transition hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
+            >
+              {project.title}
+            </button>
           </h3>
           <p className="mt-4 leading-7 text-on-surface-variant">
             {project.description}
@@ -95,10 +104,11 @@ export function ProjectCard({ project }: { project: Project }) {
             <ButtonLink
               href="#contacto"
               variant="secondary"
+              ariaLabel={`Código privado de ${project.title}`}
               className={cn("gap-2", repositoryButtonClassName)}
             >
               <GitHubIcon className="h-4 w-4" />
-              Repositorio privado
+              Privado
             </ButtonLink>
           </div>
         </div>

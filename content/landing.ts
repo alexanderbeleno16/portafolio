@@ -14,6 +14,10 @@ export const externalLinks = {
   cv: "/cv/alexander-beleno-cv-es.pdf",
 } as const;
 
+export const contact = {
+  email: "ing.alexbeleno@gmail.com",
+} as const;
+
 export const hero = {
   eyebrow: "Ingeniería de sistemas y computación",
   name: "Alexander Beleño",
@@ -76,6 +80,7 @@ export const projects = [
     image: "/projects/colombia-monitor/situacion.png",
     gallery: [
       "/projects/colombia-monitor/situacion.png",
+      "/projects/colombia-monitor/colombia-general.png",
       "/projects/colombia-monitor/mapa-incidencias.png",
       "/projects/colombia-monitor/noticias.png",
     ],
@@ -88,11 +93,22 @@ export const projects = [
     title: "EduNotas",
     description:
       "Sistema educativo con frontend Angular y API modular para gestión académica, contratos REST, validación de datos y despliegue con Docker.",
-    image: "/stitch/grade-architect.png",
+    image:
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164421.png",
     gallery: [
-      "/stitch/grade-architect.png",
-      "/stitch/nexus-platform.png",
-      "/stitch/smartmenu-qr.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164421.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164451.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164538.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164628.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164651.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164731.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164800.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164837.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164858.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164924.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20164958.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20165011.png",
+      "/projects/edunotas/Captura%20de%20pantalla%202026-05-21%20165112.png",
     ],
     alt: "Interfaz de gestión académica con visualizaciones de datos azules en monitores de escritorio.",
     tags: ["Angular", "FastAPI", "SQLAlchemy", "Pydantic", "Docker"],

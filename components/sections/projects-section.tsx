@@ -8,6 +8,7 @@ export function ProjectsSection() {
   return (
     <section id="proyectos" className="section-shell" aria-labelledby="projects-title">
       <SectionHeading
+        titleId="projects-title"
         title="Proyectos Destacados"
         description="Casos diseñados como sistemas: producto, datos, infraestructura y experiencia visual funcionando en una sola pieza."
       />

@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { HTMLAttributeAnchorTarget, ReactNode } from "react";
+import type { HTMLAttributeAnchorTarget, MouseEvent, ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
@@ -30,9 +32,26 @@ export function ButtonLink({
   target,
   rel,
 }: ButtonLinkProps) {
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!href.startsWith("#") || href.length <= 1 || target) {
+      return;
+    }
+
+    const targetElement = document.getElementById(decodeURIComponent(href.slice(1)));
+
+    if (!targetElement) {
+      return;
+    }
+
+    event.preventDefault();
+    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", href);
+  };
+
   return (
     <Link
       href={href}
+      onClick={handleClick}
       aria-label={ariaLabel}
       target={target}
       rel={target === "_blank" ? (rel ?? "noopener noreferrer") : rel}

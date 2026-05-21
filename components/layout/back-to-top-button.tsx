@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 
 import { ArrowUpIcon } from "@/components/ui/icons";
@@ -10,6 +11,18 @@ const SHOW_AFTER_SCROLL = 520;
 
 export function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
+
+  const scrollToStart = (event: MouseEvent<HTMLAnchorElement>) => {
+    const startSection = document.getElementById("inicio");
+
+    if (!startSection) {
+      return;
+    }
+
+    event.preventDefault();
+    startSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", "#inicio");
+  };
 
   useEffect(() => {
     let animationFrame = 0;
@@ -33,6 +46,7 @@ export function BackToTopButton() {
   return (
     <Link
       href="#inicio"
+      onClick={scrollToStart}
       aria-label="Volver al inicio"
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}

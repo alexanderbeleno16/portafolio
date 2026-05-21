@@ -57,7 +57,7 @@ export function ProjectPhotoSlider({
         src={activePhoto}
         alt={alt}
         fill
-        sizes="(min-width: 1024px) 50vw, 100vw"
+        sizes="(min-width: 1536px) 40rem, (min-width: 1024px) 46vw, 92vw"
         className="project-photo-image object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-background/55 to-transparent" />

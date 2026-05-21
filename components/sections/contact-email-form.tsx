@@ -2,11 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 
-const CONTACT_EMAIL = "hello@architect.os";
+type ContactEmailFormProps = {
+  email: string;
+};
 
-export function ContactEmailForm() {
+export function ContactEmailForm({ email }: ContactEmailFormProps) {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
+  const mailtoHref = `mailto:${email}`;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,15 +19,26 @@ export function ContactEmailForm() {
       body,
     });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?${params.toString()}`;
+    window.location.href = `${mailtoHref}?${params.toString()}`;
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto mt-10 grid max-w-2xl gap-4 text-left"
+      className="mx-auto mt-10 grid w-full max-w-2xl gap-4 text-left"
       aria-label="Formulario de contacto por correo"
     >
+      <p className="body-small text-center text-on-surface-variant">
+        También puedes escribirme directamente a{" "}
+        <a
+          href={mailtoHref}
+          className="break-all font-semibold text-tertiary underline decoration-tertiary/40 underline-offset-4 transition hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
+        >
+          {email}
+        </a>
+        .
+      </p>
+
       <div className="grid gap-2">
         <label htmlFor="email-subject" className="label-caps text-tertiary">
           Asunto
@@ -35,7 +49,7 @@ export function ContactEmailForm() {
           value={subject}
           onChange={(event) => setSubject(event.target.value)}
           required
-          placeholder="Contame sobre tu proyecto"
+          placeholder="Cuéntame sobre tu proyecto"
           className="min-h-12 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
         />
       </div>
@@ -51,7 +65,7 @@ export function ContactEmailForm() {
           onChange={(event) => setBody(event.target.value)}
           required
           rows={5}
-          placeholder="Escribí el contexto, objetivo y fecha estimada."
+          placeholder="Escribe el contexto, objetivo y fecha estimada."
           className="min-h-36 resize-y rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
         />
       </div>

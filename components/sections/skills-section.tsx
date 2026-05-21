@@ -7,6 +7,7 @@ export function SkillsSection() {
   return (
     <section id="habilidades" className="section-shell" aria-labelledby="skills-title">
       <SectionHeading
+        titleId="skills-title"
         align="center"
         title="Stack técnico y dominio"
         description="Un sistema de capacidades pensado para producto: frontend expresivo, backend sólido, nube automatizada e IA aplicada."
