@@ -1,0 +1,27 @@
+﻿{
+    "id":  22,
+    "jsonrpc":  "2.0",
+    "result":  {
+                   "content":  [
+                                   {
+                                       "text":  "{\"name\":\"projects/9357801229598309650/screens/deafc24418614e9ab377d6efb5322596\",\"title\":\"Portafolio Profesional - Ingeniero de Sistemas\",\"screenshot\":{},\"htmlCode\":{\"name\":\"projects/9357801229598309650/files/ecb9cf6686034eabb40467ffbd523c78\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzk0YjJlNTRiOTg4OTQyMzc4ODc3NzAzMjc3MWVjMWRiEgsSBxC-z8XKthkYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzU3ODAxMjI5NTk4MzA5NjUw\u0026filename=\u0026opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"1280\",\"height\":\"1024\",\"deviceType\":\"DESKTOP\"}",
+                                       "type":  "text"
+                                   }
+                               ],
+                   "structuredContent":  {
+                                             "deviceType":  "DESKTOP",
+                                             "height":  "1024",
+                                             "htmlCode":  {
+                                                              "downloadUrl":  "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzk0YjJlNTRiOTg4OTQyMzc4ODc3NzAzMjc3MWVjMWRiEgsSBxC-z8XKthkYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzU3ODAxMjI5NTk4MzA5NjUw\u0026filename=\u0026opi=89354086",
+                                                              "mimeType":  "text/html",
+                                                              "name":  "projects/9357801229598309650/files/ecb9cf6686034eabb40467ffbd523c78"
+                                                          },
+                                             "name":  "projects/9357801229598309650/screens/deafc24418614e9ab377d6efb5322596",
+                                             "screenshot":  {
+
+                                                            },
+                                             "title":  "Portafolio Profesional - Ingeniero de Sistemas",
+                                             "width":  "1280"
+                                         }
+               }
+}

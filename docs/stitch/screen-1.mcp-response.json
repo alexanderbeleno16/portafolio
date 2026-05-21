@@ -1,0 +1,28 @@
+﻿{
+    "id":  21,
+    "jsonrpc":  "2.0",
+    "result":  {
+                   "content":  [
+                                   {
+                                       "text":  "{\"name\":\"projects/9357801229598309650/screens/77b6d4fdd1ff4abb83125d56aa0eed29\",\"title\":\"Portafolio Profesional - Ingeniero de Sistemas\",\"screenshot\":{\"name\":\"projects/9357801229598309650/files/4eedbe09316f459b97ddb810531a9507\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/ADBb0uhrxKJfgh-PSfqUJGl4FuysKd0B269DQsC_tc1rguYqCx4x_FKN9fPo9Oveieya-5pmB7iPv-Tha3TLHrnN0UMpq8KMKHNbY52VuyxjA9XTdo7gt5mEU_DRl6ZitiApzpkRepSTOec7in_7z66GknP7SIyCgK0BvYhAGi3bWBhVAX-Aat6qNklxLMpFsb0qMcJCfPVkLt-OW8q-Hua_dCK9LvegulyiLk9Ptn3DK6lf08JYBozO6p5wsA\"},\"htmlCode\":{\"name\":\"projects/9357801229598309650/files/72893f77d94b4e66b6f21103bc133a2b\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA5OWRmYTNjMWJlMjQzMDhhMDM0YjBjM2ZkN2I0MTkxEgsSBxC-z8XKthkYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzU3ODAxMjI5NTk4MzA5NjUw\u0026filename=\u0026opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"13446\",\"deviceType\":\"DESKTOP\"}",
+                                       "type":  "text"
+                                   }
+                               ],
+                   "structuredContent":  {
+                                             "deviceType":  "DESKTOP",
+                                             "height":  "13446",
+                                             "htmlCode":  {
+                                                              "downloadUrl":  "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA5OWRmYTNjMWJlMjQzMDhhMDM0YjBjM2ZkN2I0MTkxEgsSBxC-z8XKthkYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzU3ODAxMjI5NTk4MzA5NjUw\u0026filename=\u0026opi=89354086",
+                                                              "mimeType":  "text/html",
+                                                              "name":  "projects/9357801229598309650/files/72893f77d94b4e66b6f21103bc133a2b"
+                                                          },
+                                             "name":  "projects/9357801229598309650/screens/77b6d4fdd1ff4abb83125d56aa0eed29",
+                                             "screenshot":  {
+                                                                "downloadUrl":  "https://lh3.googleusercontent.com/aida/ADBb0uhrxKJfgh-PSfqUJGl4FuysKd0B269DQsC_tc1rguYqCx4x_FKN9fPo9Oveieya-5pmB7iPv-Tha3TLHrnN0UMpq8KMKHNbY52VuyxjA9XTdo7gt5mEU_DRl6ZitiApzpkRepSTOec7in_7z66GknP7SIyCgK0BvYhAGi3bWBhVAX-Aat6qNklxLMpFsb0qMcJCfPVkLt-OW8q-Hua_dCK9LvegulyiLk9Ptn3DK6lf08JYBozO6p5wsA",
+                                                                "name":  "projects/9357801229598309650/files/4eedbe09316f459b97ddb810531a9507"
+                                                            },
+                                             "title":  "Portafolio Profesional - Ingeniero de Sistemas",
+                                             "width":  "2560"
+                                         }
+               }
+}
