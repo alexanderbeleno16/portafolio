@@ -9,7 +9,8 @@ export function ProjectsSection() {
     <section id="proyectos" className="section-shell" aria-labelledby="projects-title">
       <SectionHeading
         titleId="projects-title"
-        title="Proyectos Destacados"
+        align="center"
+        title={<>Proyectos <span className="text-gradient-blue">Destacados</span></>}
         description="Casos diseñados como sistemas: producto, datos, infraestructura y experiencia visual funcionando en una sola pieza."
       />
 
@@ -24,7 +25,7 @@ export function ProjectsSection() {
           href={externalLinks.githubRepositories}
           target="_blank"
           variant="secondary"
-          className="attention-cta gap-3 rounded-full px-8"
+          className="gap-3 px-8"
         >
           <GitHubIcon className="h-5 w-5" />
           Ver más

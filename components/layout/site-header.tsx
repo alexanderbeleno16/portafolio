@@ -1,33 +1,126 @@
+"use client";
+
+import Link from "next/link";
+import { type MouseEvent, useEffect, useState } from "react";
+
 import { ActiveNavLinks } from "@/components/layout/active-nav-links";
-import { ScrollProgress } from "@/components/layout/scroll-progress";
-import { ButtonLink } from "@/components/ui/button-link";
-import { FileTextIcon } from "@/components/ui/icons";
-import { externalLinks } from "@/content/landing";
+import { externalLinks, navItems } from "@/content/landing";
+
+function getCleanHashUrl(hash: string) {
+  return `${window.location.pathname}${window.location.search}${hash}`;
+}
 
 export function SiteHeader() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMobileNavClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const targetElement = document.getElementById(decodeURIComponent(href.slice(1)));
+
+    if (!targetElement) {
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    event.preventDefault();
+    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", getCleanHashUrl(href));
+    setIsMobileMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-surface/35 backdrop-blur-2xl">
-      <nav
-        aria-label="Navegación principal"
-        className="page-container grid h-20 grid-cols-1 items-center justify-items-center lg:grid-cols-[1fr_auto_1fr] lg:gap-6"
-      >
-        <div className="hidden lg:block" aria-hidden="true" />
-
-        <ActiveNavLinks />
-
-        <div className="justify-self-center lg:justify-self-end">
-          <ButtonLink
-            href={externalLinks.cv}
-            target="_blank"
-            ariaLabel="Abrir CV de Alexander Beleño en una nueva pestaña"
-            className="attention-cta gap-2 rounded-full px-5"
+    <header className="fixed inset-x-0 top-4 z-50 px-4">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-start lg:flex lg:w-fit lg:max-w-full lg:items-center lg:justify-center lg:gap-3">
+        <div className="relative justify-self-start lg:hidden">
+          <button
+            type="button"
+            aria-label={isMobileMenuOpen ? "Cerrar menu de navegacion" : "Abrir menu de navegacion"}
+            aria-controls="mobile-navigation-menu"
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((current) => !current)}
+            className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.065] text-on-surface-variant shadow-[0_18px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition duration-300 hover:bg-white/[0.1] hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
           >
-            <FileTextIcon className="h-4 w-4" />
-            CV
-          </ButtonLink>
+            <span className="relative h-4 w-5" aria-hidden="true">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current transition duration-300 ${
+                  isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-current transition duration-300 ${
+                  isMobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-current transition duration-300 ${
+                  isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+
+          <nav
+            id="mobile-navigation-menu"
+            aria-label="Navegacion movil"
+            aria-hidden={!isMobileMenuOpen}
+            className={`absolute left-0 top-16 w-[min(calc(100vw-2rem),19rem)] overflow-hidden rounded-[1.75rem] border border-white/10 bg-background/85 p-2 text-left shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-2xl transition duration-300 ${
+              isMobileMenuOpen
+                ? "pointer-events-auto translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-2 opacity-0"
+            }`}
+          >
+            <div className="grid gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={`/${item.href}`}
+                  tabIndex={isMobileMenuOpen ? 0 : -1}
+                  onClick={(event) => handleMobileNavClick(event, item.href)}
+                  className="rounded-full px-4 py-3 text-sm font-semibold tracking-[-0.01em] text-on-surface-variant transition duration-300 hover:bg-white/[0.08] hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
         </div>
-      </nav>
-      <ScrollProgress />
+
+        <nav
+          aria-label="Navegacion principal"
+          className="hidden h-14 items-center rounded-full bg-white/[0.065] px-4 shadow-[0_18px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl lg:flex"
+        >
+          <ActiveNavLinks />
+        </nav>
+
+        <Link
+          href={externalLinks.cv}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Abrir CV de Alexander Beleno en una nueva pestana"
+          className="inline-flex h-14 items-center justify-center justify-self-center rounded-full bg-white/[0.065] px-5 text-sm font-semibold tracking-[-0.01em] text-on-surface-variant shadow-[0_18px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition duration-300 hover:bg-white/[0.1] hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary lg:justify-self-auto"
+        >
+          CV
+        </Link>
+
+        <span className="h-14 w-14 justify-self-end lg:hidden" aria-hidden="true" />
+      </div>
     </header>
   );
 }

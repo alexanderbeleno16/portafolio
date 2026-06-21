@@ -9,8 +9,16 @@ export function SkillsSection() {
       <SectionHeading
         titleId="skills-title"
         align="center"
-        title="Stack técnico y dominio"
+        title={
+          <>
+            Stack técnico y{" "}
+            <span className="text-gradient-blue">
+              dominio
+            </span>
+          </>
+        }
         description="Un sistema de capacidades pensado para producto: frontend expresivo, backend sólido, nube automatizada e IA aplicada."
+        titleClassName="whitespace-nowrap text-[clamp(2.1rem,5vw,4.75rem)]"
       />
 
       <div className="mt-14 grid gap-6 md:grid-cols-3">

@@ -9,6 +9,10 @@ import { cn } from "@/lib/cn";
 
 const SHOW_AFTER_SCROLL = 520;
 
+function getCleanHashUrl(hash: string) {
+  return `${window.location.pathname}${window.location.search}${hash}`;
+}
+
 export function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -21,7 +25,7 @@ export function BackToTopButton() {
 
     event.preventDefault();
     startSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", "#inicio");
+    window.history.replaceState(null, "", getCleanHashUrl("#inicio"));
   };
 
   useEffect(() => {

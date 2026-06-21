@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 
 const EYEBROW_TEXTS = [
-  "Ingeniería de sistemas y computación",
-  "Full Stack",
-  "Web developer with IA",
+  "Ingeniero de sistemas y computación",
+  "Full Stack developer",
+  "Web developer",
 ] as const;
 
 const TYPE_DURATION_MS = 2900;

@@ -1,12 +1,15 @@
+import type { ReactNode } from "react";
+
 import { cn } from "@/lib/cn";
 
 type SectionHeadingProps = {
   eyebrow?: string;
-  title: string;
+  title: ReactNode;
   titleId?: string;
   description?: string;
   align?: "left" | "center";
   className?: string;
+  titleClassName?: string;
 };
 
 export function SectionHeading({
@@ -16,6 +19,7 @@ export function SectionHeading({
   description,
   align = "left",
   className,
+  titleClassName,
 }: SectionHeadingProps) {
   return (
     <div
@@ -26,9 +30,14 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p className="label-caps mb-4 text-tertiary">{eyebrow}</p>
+        <p className="label-caps mb-4 inline-flex rounded-full bg-tertiary/10 px-4 py-2 text-tertiary shadow-[inset_0_0_0_1px_rgba(76,215,246,0.24)]">
+          {eyebrow}
+        </p>
       ) : null}
-      <h2 id={titleId} className="section-title text-balance text-on-surface">
+      <h2
+        id={titleId}
+        className={cn("section-title text-balance text-on-surface", titleClassName)}
+      >
         {title}
       </h2>
       {description ? (

@@ -1,6 +1,7 @@
 export const navItems = [
   { label: "Inicio", href: "#inicio" },
   { label: "Sobre mí", href: "#sobre-mi" },
+  { label: "Estudios", href: "#estudios" },
   { label: "Habilidades", href: "#habilidades" },
   { label: "Proyectos", href: "#proyectos" },
   { label: "Experiencia", href: "#experiencia" },
@@ -42,6 +43,7 @@ export const skillGroups = [
     icon: "WEB",
     title: "Frontend",
     tags: [
+      "Astro",
       "React",
       "Angular",
       "Next.js",
@@ -56,7 +58,7 @@ export const skillGroups = [
   {
     icon: "API",
     title: "Backend",
-    tags: ["FastAPI", "Python", "Node.js", "Laravel", "Java", "PHP", "Flask", "JSP"],
+    tags: ["FastAPI", "Python", "Node.js", "Laravel", "Java", "Spring Boot", "Django", "PHP", "Flask", "JSP"],
   },
   {
     icon: "BD",
@@ -204,7 +206,7 @@ export const timeline = [
 ] as const;
 
 export const aiWorkflow = {
-  eyebrow: "Sistema operativo de IA",
+  eyebrow: "IA",
   title: "IA aplicada al ciclo de ingeniería",
   description:
     "Uso la IA como una capa de arquitectura: convierto intención en requisitos claros, coordino agentes especializados y cierro entregas revisables con validación técnica.",
@@ -237,13 +239,13 @@ export const aiWorkflow = {
         "Coordino herramientas especializadas para explorar, implementar, verificar y documentar sin perder control técnico.",
       tags: ["Codex", "Claude Code", "OpenCode", "Antigravity CLI", "Qwen CLI"],
     },
-    {
-      icon: "PR",
-      title: "PR listo para revisión",
-      description:
-        "Cierro con cambios revisables, trazabilidad, checks y una entrega lista para conversación técnica.",
-      tags: ["Revisión", "GitHub Actions", "CI", "Entrega"],
-    },
+    // {
+    //   icon: "PR",
+    //   title: "PR listo para revisión",
+    //   description:
+    //     "Cierro con cambios revisables, trazabilidad, checks y una entrega lista para conversación técnica.",
+    //   tags: ["Revisión", "GitHub Actions", "CI", "Entrega"],
+    // },
   ],
 } as const;
 

@@ -38,7 +38,7 @@ export function SiteFooter() {
             })}
           </div>
           <p className="text-center text-sm text-on-surface-variant/60 md:whitespace-nowrap md:text-right">
-            Hecho con ❤️ por Ing. Alexander J. Beleño M., Ingeniero de sistemas
+            Hecho con ❤️ por Ing. Alexander Beleño, Ingeniero de sistemas
             y computación.
           </p>
         </div>

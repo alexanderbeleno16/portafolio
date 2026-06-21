@@ -17,8 +17,8 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ing. Alex | Portafolio",
-    template: "%s | Ing. Alex",
+    default: "Ing. Alexander Beleno | Portafolio",
+    template: "%s | Ing. Alexander Beleno",
   },
   description:
     "Portafolio profesional de ingeniería de sistemas, arquitectura escalable, automatización con IA y soluciones digitales modernas.",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Alexander Beleño" }],
   openGraph: {
-    title: "Ing. Alex | Portafolio",
+    title: "Ing. Alexander Beleno | Portafolio",
     description:
       "Arquitectura de sistemas, automatización IA y desarrollo fullstack con precisión senior.",
     type: "website",

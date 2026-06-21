@@ -204,7 +204,7 @@ export function ProjectDetailModal({
                   href={project.demoHref}
                   target="_blank"
                   ariaLabel={`Abrir demo de ${project.title} en nueva pestaña`}
-                  className="h-12 min-w-[8rem] rounded-xl px-5"
+                  className="h-12 min-w-[8rem] rounded-full px-5"
                 >
                   Demo
                 </ButtonLink>

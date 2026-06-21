@@ -9,7 +9,14 @@ export function ServicesSection() {
       <SectionHeading
         align="center"
         eyebrow={aiWorkflow.eyebrow}
-        title={aiWorkflow.title}
+        title={
+          <>
+            IA aplicada al ciclo de{" "}
+            <span className="text-gradient-blue">
+              ingeniería
+            </span>
+          </>
+        }
         titleId="ai-workflow-title"
         description={aiWorkflow.description}
       />

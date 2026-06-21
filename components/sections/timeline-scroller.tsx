@@ -126,7 +126,7 @@ export function TimelineScroller({ items }: TimelineScrollerProps) {
         <div className="page-container">
           <SectionHeading
             eyebrow="Experiencia"
-            title="Trayectoria Profesional"
+            title={<>Trayectoria <span className="text-gradient-blue">Profesional</span></>}
             titleId="timeline-title"
             description="Una línea de tiempo en zigzag que revela cada etapa profesional con el avance del scroll."
             align="center"
@@ -200,7 +200,7 @@ export function TimelineScroller({ items }: TimelineScrollerProps) {
                       isActive ? "opacity-100" : "pointer-events-none opacity-0",
                     )}
                   >
-                    <article className="absolute left-10 right-0 top-1/2 z-10 -translate-y-1/2 overflow-hidden rounded-[1.75rem] border border-tertiary/60 bg-[linear-gradient(135deg,rgba(76,215,246,0.13),rgba(255,255,255,0.04))] p-5 pb-16 shadow-[0_28px_90px_rgba(76,215,246,0.13)] transition-[border-color,background-color,opacity,transform,box-shadow] duration-700 ease-out motion-reduce:transform-none motion-reduce:transition-none md:left-0 md:right-auto md:w-[calc(50%_-_3rem)] md:p-6 md:pb-16 lg:rounded-[2rem]">
+                    <article className="absolute left-10 right-0 top-1/2 z-10 -translate-y-1/2 overflow-hidden rounded-[1.75rem] border border-tertiary/60 bg-[linear-gradient(135deg,rgba(76,215,246,0.13),rgba(255,255,255,0.04))] p-5 pb-16 shadow-[0_28px_90px_rgba(76,215,246,0.13)] transition-[border-color,background-color,opacity,transform,box-shadow] duration-700 ease-out motion-reduce:transition-none md:left-0 md:right-auto md:w-[calc(50%_-_3rem)] md:p-6 md:pb-16 lg:rounded-[2rem]">
                       <p className="label-caps text-tertiary transition-colors duration-500">
                         {item.period}
                       </p>
@@ -234,7 +234,7 @@ export function TimelineScroller({ items }: TimelineScrollerProps) {
                           aria-label={`${isExpanded ? "Ver menos" : "Ver más"} sobre ${companyName}`}
                           title={isExpanded ? "Ver menos" : "Ver más"}
                           onClick={() => toggleCard(item.role)}
-                          className="absolute bottom-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-tertiary/35 bg-surface/90 text-tertiary shadow-[0_0_24px_rgba(76,215,246,0.18)] backdrop-blur transition hover:-translate-y-0.5 hover:border-tertiary hover:bg-tertiary/10 focus:outline-none focus:ring-2 focus:ring-tertiary/60 motion-reduce:transform-none"
+                          className="absolute bottom-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-tertiary/35 bg-surface/90 text-tertiary shadow-[0_0_24px_rgba(76,215,246,0.18)] backdrop-blur transition-colors hover:border-tertiary hover:bg-tertiary/10 focus:outline-none focus:ring-2 focus:ring-tertiary/60"
                         >
                           <svg
                             aria-hidden="true"

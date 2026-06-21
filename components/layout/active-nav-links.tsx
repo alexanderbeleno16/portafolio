@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 
 import { navItems } from "@/content/landing";
 import { cn } from "@/lib/cn";
 
 const HEADER_OFFSET = 112;
+const MAX_SECTION_ACTIVATION_OFFSET = 220;
 type NavHref = (typeof navItems)[number]["href"];
 
 function isNavHref(hash: string): hash is NavHref {
@@ -14,14 +15,15 @@ function isNavHref(hash: string): hash is NavHref {
 }
 
 function resolveActiveHash(): NavHref {
-  const scrollY = window.scrollY;
-  const viewportBottom = scrollY + window.innerHeight;
+  const viewportBottom = window.scrollY + window.innerHeight;
   const pageBottom = document.documentElement.scrollHeight;
 
   if (viewportBottom >= pageBottom - 4) {
     return navItems[navItems.length - 1].href;
   }
 
+  const activationLine =
+    HEADER_OFFSET + Math.min(MAX_SECTION_ACTIVATION_OFFSET, window.innerHeight * 0.22);
   let activeHash: NavHref = navItems[0].href;
 
   for (const item of navItems) {
@@ -31,7 +33,9 @@ function resolveActiveHash(): NavHref {
       continue;
     }
 
-    if (scrollY >= section.offsetTop - HEADER_OFFSET) {
+    const sectionRect = section.getBoundingClientRect();
+
+    if (sectionRect.top <= activationLine && sectionRect.bottom > HEADER_OFFSET) {
       activeHash = item.href;
     }
   }
@@ -43,8 +47,25 @@ function getCurrentHash(): NavHref {
   return isNavHref(window.location.hash) ? window.location.hash : navItems[0].href;
 }
 
+function getCleanHashUrl(hash: NavHref) {
+  return `${window.location.pathname}${window.location.search}${hash}`;
+}
+
 export function ActiveNavLinks() {
   const [activeHash, setActiveHash] = useState<NavHref>("#inicio");
+
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: NavHref) => {
+    const targetElement = document.getElementById(decodeURIComponent(href.slice(1)));
+
+    if (!targetElement) {
+      return;
+    }
+
+    event.preventDefault();
+    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", getCleanHashUrl(href));
+    setActiveHash(href);
+  };
 
   useEffect(() => {
     let animationFrame = 0;
@@ -75,7 +96,7 @@ export function ActiveNavLinks() {
   }, []);
 
   return (
-    <div className="hidden items-center gap-7 justify-self-center lg:flex">
+    <div className="hidden items-center gap-1 justify-self-center lg:flex">
       {navItems.map((item) => {
         const isActive = activeHash === item.href;
 
@@ -83,12 +104,13 @@ export function ActiveNavLinks() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={(event) => handleNavClick(event, item.href)}
             aria-current={isActive ? "page" : undefined}
             className={cn(
-              "label-caps border-b-2 pb-1 transition duration-300",
+              "rounded-full px-3 py-2 text-sm font-semibold tracking-[-0.01em] transition duration-300",
               isActive
-                ? "border-tertiary text-tertiary"
-                : "border-transparent text-on-surface-variant hover:border-white/25 hover:text-on-surface",
+                ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                : "text-on-surface-variant hover:bg-white/[0.06] hover:text-on-surface",
             )}
           >
             {item.label}
