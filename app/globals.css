@@ -36,10 +36,13 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--color-background);
 }
 
 body {
+  max-width: 100%;
   min-height: 100svh;
   margin: 0;
   overflow-x: hidden;
@@ -202,10 +205,16 @@ a {
 }
 
 .hero-grid {
+  contain: layout style paint;
+  isolation: isolate;
   background-image:
     radial-gradient(circle at 50% 16%, rgba(76, 215, 246, 0.16), transparent 22rem),
     radial-gradient(circle at 72% 28%, rgba(5, 102, 217, 0.2), transparent 26rem),
     radial-gradient(circle at 24% 52%, rgba(255, 255, 255, 0.055), transparent 24rem);
+}
+
+.hero-grid > .page-container {
+  contain: layout style;
 }
 
 .hero-grid::before {
@@ -232,6 +241,7 @@ a {
 }
 
 .hero-glass-stage {
+  contain: layout style;
   isolation: isolate;
 }
 
@@ -251,6 +261,7 @@ a {
 }
 
 .hero-glass-aurora {
+  contain: layout style paint;
   position: absolute;
   z-index: -1;
   border-radius: 999px;
@@ -286,6 +297,7 @@ a {
 }
 
 .hero-grid .glass-panel.micro-border {
+  contain: layout style paint;
   border-radius: 30% 70% 62% 38% / 42% 34% 66% 58%;
   animation: hero-photo-float 6s ease-in-out infinite;
   transform-origin: center;
@@ -320,10 +332,40 @@ a {
 }
 
 .glow-orb {
+  contain: layout style paint;
   filter: blur(80px);
   opacity: 0.85;
   transform: translate3d(0, 0, 0);
   animation: orb-drift 12s ease-in-out infinite alternate;
+}
+
+.hero-grid[data-hero-active="true"] .glow-orb,
+.hero-grid[data-hero-active="true"] .hero-glass-aurora,
+.hero-grid[data-hero-active="true"] .hero-glass-stage::before,
+.hero-grid[data-hero-active="true"] .glass-panel.micro-border,
+.hero-grid[data-hero-active="true"] .glass-panel.micro-border::after,
+.hero-grid[data-hero-active="true"] .glass-panel.micro-border > img {
+  will-change: transform;
+}
+
+.hero-grid[data-hero-active="true"] .glass-panel.micro-border::before {
+  will-change: opacity, filter;
+}
+
+.hero-grid[data-hero-active="true"] .typing-text {
+  will-change: width;
+}
+
+.hero-grid[data-hero-active="false"] .glow-orb,
+.hero-grid[data-hero-active="false"] .hero-glass-aurora,
+.hero-grid[data-hero-active="false"] .hero-glass-stage::before,
+.hero-grid[data-hero-active="false"] .glass-panel.micro-border,
+.hero-grid[data-hero-active="false"] .glass-panel.micro-border::before,
+.hero-grid[data-hero-active="false"] .glass-panel.micro-border::after,
+.hero-grid[data-hero-active="false"] .glass-panel.micro-border > img,
+.hero-grid[data-hero-active="false"] .typing-text {
+  animation-play-state: paused;
+  will-change: auto;
 }
 
 .motion-rise {

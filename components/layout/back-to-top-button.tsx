@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 
+import { useLanguage } from "@/components/language/language-provider";
 import { ArrowUpIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
@@ -14,6 +15,7 @@ function getCleanHashUrl(hash: string) {
 }
 
 export function BackToTopButton() {
+  const { content } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   const scrollToStart = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -51,7 +53,7 @@ export function BackToTopButton() {
     <Link
       href="#inicio"
       onClick={scrollToStart}
-      aria-label="Volver al inicio"
+      aria-label={content.backToTop.ariaLabel}
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
       className={cn(

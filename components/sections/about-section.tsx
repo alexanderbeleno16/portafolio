@@ -1,16 +1,20 @@
+"use client";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { GlassPanel } from "@/components/ui/glass-panel";
-import { stats } from "@/content/landing";
 
 export function AboutSection() {
+  const { content } = useLanguage();
+
   return (
     <section id="sobre-mi" className="section-shell" aria-labelledby="about-title">
       <div className="mx-auto max-w-4xl text-center">
         <p className="label-caps inline-flex rounded-full bg-tertiary/10 px-4 py-2 text-tertiary shadow-[inset_0_0_0_1px_rgba(76,215,246,0.24)]">
-          Sobre mí
+          {content.about.eyebrow}
         </p>
         <h2 id="about-title" className="section-title mt-5 text-balance text-on-surface">
-          Mi perfil{" "}
-          <span className="text-gradient-blue">profesional</span>
+          {content.about.titlePrefix}{" "}
+          <span className="text-gradient-blue">{content.about.titleHighlight}</span>
         </h2>
       </div>
 
@@ -30,11 +34,11 @@ export function AboutSection() {
             className="flex min-h-[26rem] flex-col justify-between text-[0.85rem] font-medium leading-7 tracking-[-0.025em] text-[#f1f4ff] sm:text-[0.93rem]"
             style={{ fontFamily: '"SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", monospace' }}
           >
-            <div>
-              <div className="mb-7 space-y-1 text-[#f4f6ff]">
-                <p>Welcome to alexander&apos;s Terminal</p>
-                <p>Type <span className="text-white">&quot;help&quot;</span> to see available commands</p>
-                <p>Try <span className="text-white">&quot;profile&quot;</span> to read my professional summary</p>
+              <div>
+                <div className="mb-7 space-y-1 text-[#f4f6ff]">
+                  {content.about.terminalIntro.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
               </div>
 
               <div className="mb-5 flex flex-wrap items-center gap-x-1">
@@ -46,26 +50,9 @@ export function AboutSection() {
               </div>
 
               <div className="space-y-4 text-[#dce3f2]">
-                <p>
-                Más de 5 años de experiencia como Ingeniero de Sistemas y Computación,
-                desarrollando aplicaciones web, plataformas empresariales y soluciones full
-                stack utilizando tecnologías a la vanguardia.
-                </p>
-                <p>
-                Experiencia en desarrollo de APIs, optimización de bases de datos,
-                integración de sistemas y despliegues en entornos productivos utilizando
-                Docker y tecnologías modernas de infraestructura.
-                </p>
-                <p>
-                He participado en soluciones para entornos empresariales y gubernamentales,
-                involucrándome en todo el ciclo de vida del software, desde el levantamiento
-                de requerimientos hasta la implementación y mantenimiento en producción.
-                </p>
-                <p>
-                Me enfoco en construir sistemas escalables, eficientes y mantenibles,
-                aplicando buenas prácticas de desarrollo, optimización y arquitectura de
-                software.
-                </p>
+                {content.about.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </div>
 
@@ -81,7 +68,7 @@ export function AboutSection() {
       </article>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
+        {content.stats.map((stat) => (
           <GlassPanel
             key={stat.label}
             className="reveal p-7 text-center transition duration-300 hover:-translate-y-1 hover:border-tertiary/30"

@@ -3,18 +3,19 @@
 import Link from "next/link";
 import { type MouseEvent, useEffect, useState } from "react";
 
-import { navItems } from "@/content/landing";
+import { useLanguage } from "@/components/language/language-provider";
 import { cn } from "@/lib/cn";
 
 const HEADER_OFFSET = 112;
 const MAX_SECTION_ACTIVATION_OFFSET = 220;
-type NavHref = (typeof navItems)[number]["href"];
+type NavItem = { href: string; label: string };
+type NavHref = string;
 
-function isNavHref(hash: string): hash is NavHref {
+function isNavHref(hash: string, navItems: readonly NavItem[]): hash is NavHref {
   return navItems.some((item) => item.href === hash);
 }
 
-function resolveActiveHash(): NavHref {
+function resolveActiveHash(navItems: readonly NavItem[]): NavHref {
   const viewportBottom = window.scrollY + window.innerHeight;
   const pageBottom = document.documentElement.scrollHeight;
 
@@ -43,8 +44,8 @@ function resolveActiveHash(): NavHref {
   return activeHash;
 }
 
-function getCurrentHash(): NavHref {
-  return isNavHref(window.location.hash) ? window.location.hash : navItems[0].href;
+function getCurrentHash(navItems: readonly NavItem[]): NavHref {
+  return isNavHref(window.location.hash, navItems) ? window.location.hash : navItems[0].href;
 }
 
 function getCleanHashUrl(hash: NavHref) {
@@ -52,6 +53,8 @@ function getCleanHashUrl(hash: NavHref) {
 }
 
 export function ActiveNavLinks() {
+  const { content } = useLanguage();
+  const navItems = content.navItems;
   const [activeHash, setActiveHash] = useState<NavHref>("#inicio");
 
   const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: NavHref) => {
@@ -73,12 +76,12 @@ export function ActiveNavLinks() {
     const updateFromScroll = () => {
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(() => {
-        setActiveHash(resolveActiveHash());
+        setActiveHash(resolveActiveHash(navItems));
       });
     };
 
     const updateFromHash = () => {
-      setActiveHash(getCurrentHash());
+      setActiveHash(getCurrentHash(navItems));
       updateFromScroll();
     };
 
@@ -93,7 +96,7 @@ export function ActiveNavLinks() {
       window.removeEventListener("resize", updateFromScroll);
       window.removeEventListener("hashchange", updateFromHash);
     };
-  }, []);
+  }, [navItems]);
 
   return (
     <div className="hidden items-center gap-1 justify-self-center lg:flex">

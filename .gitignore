@@ -8,3 +8,4 @@ next-dev-*.log
 .env*
 !.env.example
 .atl/*
+.codegraph/

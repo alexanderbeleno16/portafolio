@@ -1,15 +1,56 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { HeroEyebrowLoop } from "@/components/sections/hero-eyebrow-loop";
 import { ButtonLink } from "@/components/ui/button-link";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/ui/icons";
-import { externalLinks, hero } from "@/content/landing";
+import { externalLinks } from "@/content/landing";
+
+function useHeroVisibility() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [isHeroActive, setIsHeroActive] = useState(true);
+
+  useEffect(() => {
+    const heroElement = heroRef.current;
+
+    if (!heroElement || !("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroActive(Boolean(entry?.isIntersecting));
+      },
+      {
+        root: null,
+        threshold: 0.01,
+      },
+    );
+
+    observer.observe(heroElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return { heroRef, isHeroActive };
+}
 
 export function HeroSection() {
+  const { content, language } = useLanguage();
+  const hero = content.hero;
+  const { heroRef, isHeroActive } = useHeroVisibility();
+
   return (
     <section
+      ref={heroRef}
       id="inicio"
       className="hero-grid relative isolate min-h-[100svh] overflow-hidden pt-24"
+      data-hero-active={isHeroActive}
       aria-labelledby="hero-title"
     >
       <div className="glow-orb absolute left-[8%] top-[18%] -z-10 h-72 w-72 rounded-full bg-secondary-container/25" />
@@ -36,7 +77,7 @@ export function HeroSection() {
 
         <div className="mx-auto max-w-[52rem] px-2 lg:order-2">
           <p className="hero-eyebrow motion-rise label-caps inline-flex max-w-full rounded-full border border-white/10 bg-white/[0.055] px-4 py-2 text-tertiary shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl">
-            <HeroEyebrowLoop />
+            <HeroEyebrowLoop key={language} texts={hero.eyebrowTexts} isActive={isHeroActive} />
           </p>
 
           <h1
@@ -55,13 +96,13 @@ export function HeroSection() {
 
           <div className="motion-rise motion-delay-3 mt-9 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
             <ButtonLink href="#proyectos" className="w-full sm:w-auto">
-              Ver proyectos
+              {hero.projectsCta}
             </ButtonLink>
             <div className="flex items-center justify-center gap-3 sm:justify-start">
               <ButtonLink
                 href="#contacto"
                 variant="secondary"
-                ariaLabel="Correo"
+                ariaLabel={hero.contactAriaLabel}
                 className="h-12 w-12 !px-0"
               >
                 <MailIcon className="h-5 w-5" />

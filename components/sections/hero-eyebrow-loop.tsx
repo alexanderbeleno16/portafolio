@@ -3,32 +3,33 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 
-const EYEBROW_TEXTS = [
-  "Ingeniero de sistemas y computación",
-  "Full Stack developer",
-  "Web developer",
-] as const;
-
 const TYPE_DURATION_MS = 2900;
 const PAUSE_AFTER_TYPE_MS = 3000;
 
-export function HeroEyebrowLoop() {
+type HeroEyebrowLoopProps = {
+  texts: readonly string[];
+  isActive?: boolean;
+};
+
+export function HeroEyebrowLoop({ texts, isActive = true }: HeroEyebrowLoopProps) {
   const [textIndex, setTextIndex] = useState(0);
-  const text = EYEBROW_TEXTS[textIndex];
+  const text = texts[textIndex] ?? texts[0] ?? "";
 
   useEffect(() => {
-    const shouldReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const shouldReduceMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (shouldReduceMotion) {
+    if (shouldReduceMotion || !isActive || texts.length <= 1) {
       return;
     }
 
     const interval = window.setInterval(() => {
-      setTextIndex((currentIndex) => (currentIndex + 1) % EYEBROW_TEXTS.length);
+      setTextIndex((currentIndex) => (currentIndex + 1) % texts.length);
     }, TYPE_DURATION_MS + PAUSE_AFTER_TYPE_MS);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [isActive, texts.length]);
 
   return (
     <span

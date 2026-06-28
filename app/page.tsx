@@ -9,10 +9,11 @@ import { TimelineSection } from "@/components/sections/timeline-section";
 import { BackToTopButton } from "@/components/layout/back-to-top-button";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { LanguageProvider } from "@/components/language/language-provider";
 
 export default function HomePage() {
   return (
-    <>
+    <LanguageProvider>
       <SiteHeader />
       <main>
         <HeroSection />
@@ -26,6 +27,6 @@ export default function HomePage() {
       </main>
       <BackToTopButton />
       <SiteFooter />
-    </>
+    </LanguageProvider>
   );
 }

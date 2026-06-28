@@ -1,6 +1,10 @@
+"use client";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { TimelineScroller } from "@/components/sections/timeline-scroller";
-import { timeline } from "@/content/landing";
 
 export function TimelineSection() {
-  return <TimelineScroller items={timeline} />;
+  const { content } = useLanguage();
+
+  return <TimelineScroller items={content.timeline} labels={content.timelineSection} />;
 }

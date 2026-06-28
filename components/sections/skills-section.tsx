@@ -1,9 +1,14 @@
+"use client";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { GlassPanel } from "@/components/ui/glass-panel";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TechBadge } from "@/components/ui/tech-badge";
-import { aiStack, skillGroups } from "@/content/landing";
+import { aiStack } from "@/content/landing";
 
 export function SkillsSection() {
+  const { content } = useLanguage();
+
   return (
     <section id="habilidades" className="section-shell" aria-labelledby="skills-title">
       <SectionHeading
@@ -11,18 +16,18 @@ export function SkillsSection() {
         align="center"
         title={
           <>
-            Stack técnico y{" "}
+            {content.skills.titlePrefix}{" "}
             <span className="text-gradient-blue">
-              dominio
+              {content.skills.titleHighlight}
             </span>
           </>
         }
-        description="Un sistema de capacidades pensado para producto: frontend expresivo, backend sólido, nube automatizada e IA aplicada."
+        description={content.skills.description}
         titleClassName="whitespace-nowrap text-[clamp(2.1rem,5vw,4.75rem)]"
       />
 
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {skillGroups.map((group) => (
+        {content.skillGroups.map((group) => (
           <GlassPanel key={group.title} as="article" className="reveal p-8">
             <div className="flex items-center gap-4">
               <span className="font-mono text-sm text-tertiary">{group.icon}</span>
@@ -41,12 +46,11 @@ export function SkillsSection() {
             <div className="flex items-center gap-4">
               <span className="font-mono text-sm text-tertiary">MEM</span>
               <h3 className="text-xl font-semibold tracking-[-0.03em]">
-                IA y Ciencia de Datos
+                {content.skills.aiTitle}
               </h3>
             </div>
             <p className="mt-4 leading-7 text-on-surface-variant">
-              Integración de LLMs, automatización mediante agentes inteligentes y
-              pipelines de datos eficientes para analítica predictiva.
+              {content.skills.aiDescription}
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {aiStack.map((tag) => (
@@ -62,11 +66,10 @@ export function SkillsSection() {
         >
           <div className="flex items-center gap-4">
             <span className="font-mono text-sm text-secondary">SPD</span>
-            <h3 className="text-xl font-semibold tracking-[-0.03em]">Eficiencia</h3>
+            <h3 className="text-xl font-semibold tracking-[-0.03em]">{content.skills.efficiencyTitle}</h3>
           </div>
           <p className="mt-4 leading-7 text-on-surface-variant">
-            Metodologías ágiles, CI/CD y optimización de flujos de trabajo en equipos de
-            alto rendimiento.
+            {content.skills.efficiencyDescription}
           </p>
         </GlassPanel>
       </div>

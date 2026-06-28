@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 
+import { useLanguage } from "@/components/language/language-provider";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/ui/icons";
 import { externalLinks } from "@/content/landing";
 
@@ -42,6 +43,8 @@ function ContactIcon({ name }: { name: ContactIconName }) {
 }
 
 export function ContactEmailForm({ email }: ContactEmailFormProps) {
+  const { content } = useLanguage();
+  const contactContent = content.contactSection;
   const [name, setName] = useState("");
   const [fromEmail, setFromEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -50,7 +53,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
   const contactCards = [
     {
       icon: "mail" as const,
-      label: "Correo electrónico",
+      label: contactContent.labels.email,
       value: email,
       href: mailtoHref,
     },
@@ -68,8 +71,8 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
     },
     {
       icon: "location" as const,
-      label: "Ubicación",
-      value: "Barranquilla, Colombia",
+      label: contactContent.labels.location,
+      value: contactContent.locationValue,
     },
   ];
 
@@ -77,8 +80,8 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
     event.preventDefault();
 
     const composedBody = [
-      `Nombre: ${name}`,
-      `Email: ${fromEmail}`,
+      `${contactContent.mailBodyLabels.name}: ${name}`,
+      `${contactContent.mailBodyLabels.email}: ${fromEmail}`,
       "",
       body,
     ].join("\n");
@@ -95,7 +98,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
     <div className="mx-auto mt-14 grid w-full max-w-6xl gap-8 text-left lg:grid-cols-[0.95fr_1.05fr]">
       <div>
         <h3 className="text-xl font-semibold tracking-[-0.03em] text-on-surface">
-          Información de contacto
+          {contactContent.infoTitle}
         </h3>
 
         <div className="mt-6 grid gap-4">
@@ -138,16 +141,16 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
       <form
         onSubmit={handleSubmit}
         className="grid gap-5"
-        aria-label="Formulario de contacto por correo"
+        aria-label={contactContent.formAriaLabel}
       >
         <h3 className="text-xl font-semibold tracking-[-0.03em] text-on-surface">
-          Envíame un mensaje
+          {contactContent.formTitle}
         </h3>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="grid gap-2">
             <label htmlFor="contact-name" className="text-sm font-semibold text-on-surface">
-              Nombre
+              {contactContent.labels.name}
             </label>
             <input
               id="contact-name"
@@ -155,14 +158,14 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
-              placeholder="Tu nombre"
+              placeholder={contactContent.placeholders.name}
               className="min-h-12 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
             />
           </div>
 
           <div className="grid gap-2">
             <label htmlFor="contact-email" className="text-sm font-semibold text-on-surface">
-              Email
+              {contactContent.labels.formEmail}
             </label>
             <input
               id="contact-email"
@@ -171,7 +174,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
               value={fromEmail}
               onChange={(event) => setFromEmail(event.target.value)}
               required
-              placeholder="tu@email.com"
+              placeholder={contactContent.placeholders.email}
               className="min-h-12 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
             />
           </div>
@@ -179,7 +182,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
 
         <div className="grid gap-2">
           <label htmlFor="email-subject" className="text-sm font-semibold text-on-surface">
-            Asunto
+            {contactContent.labels.subject}
           </label>
           <input
             id="email-subject"
@@ -187,14 +190,14 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
             value={subject}
             onChange={(event) => setSubject(event.target.value)}
             required
-            placeholder="¿En qué puedo ayudarte?"
+            placeholder={contactContent.placeholders.subject}
             className="min-h-12 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
           />
         </div>
 
         <div className="grid gap-2">
           <label htmlFor="email-body" className="text-sm font-semibold text-on-surface">
-            Mensaje
+            {contactContent.labels.message}
           </label>
           <textarea
             id="email-body"
@@ -203,7 +206,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
             onChange={(event) => setBody(event.target.value)}
             required
             rows={6}
-            placeholder="Cuéntame sobre tu proyecto u oportunidad..."
+            placeholder={contactContent.placeholders.message}
             className="min-h-36 resize-y rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-on-surface outline-none transition placeholder:text-on-surface-variant/55 focus:border-tertiary/60 focus:bg-white/[0.07]"
           />
         </div>
@@ -225,7 +228,7 @@ export function ContactEmailForm({ email }: ContactEmailFormProps) {
             <path d="m22 2-7 20-4-9-9-4 20-7Z" />
             <path d="M22 2 11 13" />
           </svg>
-          Enviar mensaje
+          {contactContent.submit}
         </button>
       </form>
     </div>

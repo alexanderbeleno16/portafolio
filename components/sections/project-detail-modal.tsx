@@ -4,16 +4,15 @@ import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import type { projects } from "@/content/landing";
+import type { Project } from "@/content/landing";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XIcon,
 } from "@/components/ui/icons";
 import { ButtonLink } from "@/components/ui/button-link";
+import { useLanguage } from "@/components/language/language-provider";
 import { TechBadge } from "@/components/ui/tech-badge";
-
-type Project = (typeof projects)[number];
 
 type ProjectDetailModalProps = {
   project: Project;
@@ -27,11 +26,20 @@ const ZOOM_STEP = 0.25;
 const INITIAL_VISIBLE_GALLERY_ITEMS = 6;
 const GALLERY_ITEMS_BATCH = 4;
 
+function formatTemplate(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    template,
+  );
+}
+
 export function ProjectDetailModal({
   project,
   isOpen,
   onClose,
 }: ProjectDetailModalProps) {
+  const { content } = useLanguage();
+  const projectActions = content.projectActions;
   const titleId = useId();
   const descriptionId = useId();
   const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
@@ -149,7 +157,7 @@ export function ProjectDetailModal({
     <div className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-6">
       <button
         type="button"
-        aria-label={`Cerrar detalle de ${project.title}`}
+        aria-label={formatTemplate(projectActions.closeDetail, { project: project.title })}
         className="absolute inset-0 cursor-default bg-background/85 backdrop-blur-md"
         onClick={closeModal}
       />
@@ -163,7 +171,7 @@ export function ProjectDetailModal({
       >
         <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-5 md:px-7">
           <div>
-            <p className="label-caps text-tertiary">Detalle del proyecto</p>
+            <p className="label-caps text-tertiary">{projectActions.projectDetailLabel}</p>
             <h3
               id={titleId}
               className="mt-2 text-3xl font-black tracking-[-0.05em] text-on-surface md:text-5xl"
@@ -173,7 +181,7 @@ export function ProjectDetailModal({
           </div>
           <button
             type="button"
-            aria-label="Cerrar modal"
+            aria-label={projectActions.closeModal}
             onClick={closeModal}
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-on-surface transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
           >
@@ -203,7 +211,7 @@ export function ProjectDetailModal({
                 <ButtonLink
                   href={project.demoHref}
                   target="_blank"
-                  ariaLabel={`Abrir demo de ${project.title} en nueva pestaña`}
+                  ariaLabel={formatTemplate(projectActions.openDemo, { project: project.title })}
                   className="h-12 min-w-[8rem] rounded-full px-5"
                 >
                   Demo
@@ -225,21 +233,30 @@ export function ProjectDetailModal({
                     setZoomLevel(1);
                   }}
                   className="group relative block aspect-video w-full overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
-                  aria-label={`Abrir captura ${index + 1} de ${project.title} en pantalla completa`}
+                  aria-label={formatTemplate(projectActions.openCapture, {
+                    index: index + 1,
+                    project: project.title,
+                  })}
                 >
                   <Image
                     src={photo}
-                    alt={`${project.title} — captura ${index + 1}`}
+                    alt={formatTemplate(projectActions.captureAlt, {
+                      index: index + 1,
+                      project: project.title,
+                    })}
                     fill
                     sizes="(min-width: 1536px) 36rem, (min-width: 768px) 44vw, 92vw"
                     className="object-contain p-2 transition duration-300 group-hover:scale-[1.02]"
                   />
                   <span className="label-caps absolute bottom-3 right-3 rounded-full border border-white/15 bg-background/80 px-3 py-2 text-xs text-on-surface backdrop-blur-md">
-                    Ampliar
+                    {projectActions.expand}
                   </span>
                 </button>
                 <figcaption className="label-caps border-t border-white/10 px-4 py-3 text-on-surface-variant">
-                  Imagen {index + 1} de {project.gallery.length}
+                  {formatTemplate(projectActions.imageCount, {
+                    index: index + 1,
+                    total: project.gallery.length,
+                  })}
                 </figcaption>
               </figure>
             ))}
@@ -256,7 +273,9 @@ export function ProjectDetailModal({
                 }}
                 className="label-caps inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 px-5 text-on-surface transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
               >
-                Ver más capturas ({project.gallery.length - visibleGalleryCount} restantes)
+                {formatTemplate(projectActions.showMoreCaptures, {
+                  count: project.gallery.length - visibleGalleryCount,
+                })}
               </button>
             </div>
           ) : null}
@@ -268,11 +287,14 @@ export function ProjectDetailModal({
           className="fixed inset-0 z-[90] flex flex-col bg-background/95 px-4 py-5 backdrop-blur-xl"
           role="dialog"
           aria-modal="true"
-          aria-label={`Galería en pantalla completa de ${project.title}`}
+          aria-label={formatTemplate(projectActions.fullscreenGallery, { project: project.title })}
         >
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
             <p className="label-caps text-on-surface-variant">
-              Imagen {(fullscreenIndex ?? 0) + 1} de {project.gallery.length}
+              {formatTemplate(projectActions.imageCount, {
+                index: (fullscreenIndex ?? 0) + 1,
+                total: project.gallery.length,
+              })}
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <button
@@ -281,7 +303,7 @@ export function ProjectDetailModal({
                 disabled={zoomLevel <= MIN_ZOOM_LEVEL}
                 className="label-caps inline-flex h-10 items-center justify-center rounded-full border border-white/15 px-4 text-on-surface transition hover:border-tertiary/60 hover:text-tertiary disabled:cursor-not-allowed disabled:opacity-45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
               >
-                Alejar
+                {projectActions.zoomOut}
               </button>
               <button
                 type="button"
@@ -289,12 +311,12 @@ export function ProjectDetailModal({
                 disabled={zoomLevel >= MAX_ZOOM_LEVEL}
                 className="label-caps inline-flex h-10 items-center justify-center rounded-full border border-white/15 px-4 text-on-surface transition hover:border-tertiary/60 hover:text-tertiary disabled:cursor-not-allowed disabled:opacity-45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
               >
-                Acercar
+                {projectActions.zoomIn}
               </button>
               <button
                 ref={closeFullscreenButtonRef}
                 type="button"
-                aria-label="Cerrar pantalla completa"
+                aria-label={projectActions.closeFullscreen}
                 onClick={closeFullscreen}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-on-surface transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
               >
@@ -307,7 +329,7 @@ export function ProjectDetailModal({
             <button
               type="button"
               onClick={showPreviousImage}
-              aria-label="Ver imagen anterior"
+              aria-label={projectActions.previousImage}
               className="absolute left-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface/75 text-on-surface shadow-lg backdrop-blur-md transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:left-4"
             >
               <ChevronLeftIcon className="h-6 w-6" />
@@ -320,7 +342,10 @@ export function ProjectDetailModal({
               >
                 <Image
                   src={project.gallery[fullscreenIndex ?? 0]}
-                  alt={`${project.title} — captura ${(fullscreenIndex ?? 0) + 1} ampliada`}
+                  alt={formatTemplate(projectActions.expandedCaptureAlt, {
+                    index: (fullscreenIndex ?? 0) + 1,
+                    project: project.title,
+                  })}
                   fill
                   sizes="(min-width: 1536px) 1200px, (min-width: 1024px) calc(100vw - 8rem), calc(100vw - 2rem)"
                   className="object-contain p-4"
@@ -331,7 +356,7 @@ export function ProjectDetailModal({
             <button
               type="button"
               onClick={showNextImage}
-              aria-label="Ver imagen siguiente"
+              aria-label={projectActions.nextImage}
               className="absolute right-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface/75 text-on-surface shadow-lg backdrop-blur-md transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:right-4"
             >
               <ChevronRightIcon className="h-6 w-6" />

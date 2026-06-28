@@ -1,9 +1,14 @@
+"use client";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { GlassPanel } from "@/components/ui/glass-panel";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TechBadge } from "@/components/ui/tech-badge";
-import { aiWorkflow } from "@/content/landing";
 
 export function ServicesSection() {
+  const { content } = useLanguage();
+  const aiWorkflow = content.aiWorkflow;
+
   return (
     <section id="ia" className="section-shell" aria-labelledby="ai-workflow-title">
       <SectionHeading
@@ -11,9 +16,9 @@ export function ServicesSection() {
         eyebrow={aiWorkflow.eyebrow}
         title={
           <>
-            IA aplicada al ciclo de{" "}
+            {aiWorkflow.titlePrefix}{" "}
             <span className="text-gradient-blue">
-              ingeniería
+              {aiWorkflow.titleHighlight}
             </span>
           </>
         }

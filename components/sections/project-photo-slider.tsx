@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { useLanguage } from "@/components/language/language-provider";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
@@ -14,11 +15,19 @@ type ProjectPhotoSliderProps = {
   title: string;
 };
 
+function formatTemplate(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    template,
+  );
+}
+
 export function ProjectPhotoSlider({
   gallery,
   alt,
   title,
 }: ProjectPhotoSliderProps) {
+  const { content } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const safeActiveIndex = gallery.length > 0 ? activeIndex % gallery.length : 0;
   const activePhoto = gallery[safeActiveIndex];
@@ -66,7 +75,7 @@ export function ProjectPhotoSlider({
         <>
           <button
             type="button"
-            aria-label={`Ver imagen anterior de ${title}`}
+            aria-label={formatTemplate(content.projectActions.previousProjectImage, { project: title })}
             onClick={showPreviousPhoto}
             className={cn(
               "absolute left-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full",
@@ -78,7 +87,7 @@ export function ProjectPhotoSlider({
           </button>
           <button
             type="button"
-            aria-label={`Ver imagen siguiente de ${title}`}
+            aria-label={formatTemplate(content.projectActions.nextProjectImage, { project: title })}
             onClick={showNextPhoto}
             className={cn(
               "absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full",
@@ -92,14 +101,21 @@ export function ProjectPhotoSlider({
       ) : null}
 
       <div
-        aria-label={`Imagen ${safeActiveIndex + 1} de ${gallery.length} de ${title}`}
+        aria-label={formatTemplate(content.projectActions.imageSetLabel, {
+          index: safeActiveIndex + 1,
+          total: gallery.length,
+          project: title,
+        })}
         className="absolute bottom-4 left-5 flex gap-1.5"
       >
         {gallery.map((photo, index) => (
           <button
             key={`${photo}-indicator`}
             type="button"
-            aria-label={`Ver imagen ${index + 1} de ${title}`}
+            aria-label={formatTemplate(content.projectActions.viewProjectImage, {
+              index: index + 1,
+              project: title,
+            })}
             aria-current={index === safeActiveIndex ? "true" : undefined}
             onClick={() => setActiveIndex(index)}
             className={cn(

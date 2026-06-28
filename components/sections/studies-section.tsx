@@ -1,56 +1,13 @@
+"use client";
+
 import type { SVGProps } from "react";
 
+import { useLanguage } from "@/components/language/language-provider";
 import { GlassPanel } from "@/components/ui/glass-panel";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 type StudyIconName = "graduation" | "shield" | "code" | "terminal";
 type IconProps = SVGProps<SVGSVGElement>;
-
-const studies = [
-  {
-    icon: "graduation",
-    title: "Ingeniería de Sistemas y Computación",
-    institution: "Corporación Universitaria Latinoamericana CUL",
-    location: "Colombia, Barranquilla",
-    year: "Diciembre 2024",
-    description:
-      "Formación universitaria en desarrollo de software, arquitectura, gestión de proyectos tecnológicos y soluciones computacionales.",
-  },
-  {
-    icon: "shield",
-    title: "Diplomado seguridad en redes informáticas",
-    institution: "Corporación Universitaria Latinoamericana CUL",
-    location: "Colombia, Barranquilla",
-    year: "Diciembre 2024",
-    description:
-      "Profundización en protección de infraestructura, redes, controles de seguridad y buenas prácticas defensivas.",
-  },
-  {
-    icon: "code",
-    title: "Tecnólogo en análisis y desarrollo de sistemas de información",
-    institution: "Servicio Nacional de Aprendizaje SENA",
-    location: "Colombia, Barranquilla",
-    year: "Mayo 2021",
-    description:
-      "Base técnica en análisis, diseño, construcción y mantenimiento de sistemas de información.",
-  },
-  {
-    icon: "terminal",
-    title: "Técnico en desarrollo de software",
-    institution: "Servicio Nacional de Aprendizaje SENA",
-    location: "Colombia, Barranquilla",
-    year: "Diciembre 2018",
-    description:
-      "Fundamentos prácticos de programación, paradigmas de desarrollo, bases de datos, lógica y construcción de aplicaciones.",
-  },
-] as const satisfies readonly {
-  icon: StudyIconName;
-  title: string;
-  institution: string;
-  location: string;
-  year: string;
-  description: string;
-}[];
 
 function StudyIcon({ name, ...props }: IconProps & { name: StudyIconName }) {
   if (name === "graduation") {
@@ -92,25 +49,27 @@ function StudyIcon({ name, ...props }: IconProps & { name: StudyIconName }) {
 }
 
 export function StudiesSection() {
+  const { content } = useLanguage();
+
   return (
     <section id="estudios" className="section-shell" aria-labelledby="studies-title">
       <SectionHeading
         titleId="studies-title"
         align="center"
-        eyebrow="Formación"
-        title={<>Mis <span className="text-gradient-blue">Estudios</span></>}
-        description="Bases académicas y técnicas que sostienen mi trabajo como ingeniero de software."
+        eyebrow={content.studies.eyebrow}
+        title={<>{content.studies.titlePrefix} <span className="text-gradient-blue">{content.studies.titleHighlight}</span></>}
+        description={content.studies.description}
       />
 
       <div className="mx-auto mt-14 grid max-w-6xl gap-4 md:grid-cols-2">
-        {studies.map((study) => (
+        {content.studies.items.map((study) => (
           <GlassPanel
             key={study.title}
             as="article"
             className="reveal flex gap-4 p-5 transition duration-300 hover:-translate-y-1 hover:border-tertiary/30 md:p-6"
           >
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-tertiary/10 text-tertiary shadow-[inset_0_0_0_1px_rgba(76,215,246,0.22)]">
-              <StudyIcon name={study.icon} className="h-5 w-5" />
+              <StudyIcon name={study.icon as StudyIconName} className="h-5 w-5" />
             </span>
             <div className="min-w-0 flex-1">
               <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-1">

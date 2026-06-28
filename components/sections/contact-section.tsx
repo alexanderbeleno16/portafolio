@@ -1,8 +1,13 @@
+"use client";
+
+import { useLanguage } from "@/components/language/language-provider";
 import { ContactEmailForm } from "@/components/sections/contact-email-form";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { contact } from "@/content/landing";
 
 export function ContactSection() {
+  const { content } = useLanguage();
+
   return (
     <section
       id="contacto"
@@ -12,9 +17,9 @@ export function ContactSection() {
       <SectionHeading
         titleId="contact-title"
         align="center"
-        eyebrow="Contacto"
-        title={<>Trabajemos <span className="text-gradient-blue">juntos</span></>}
-        description="¿Tienes un proyecto o una oportunidad laboral? Estoy abierto a nuevas conexiones y desafíos."
+        eyebrow={content.contactSection.eyebrow}
+        title={<>{content.contactSection.titlePrefix} <span className="text-gradient-blue">{content.contactSection.titleHighlight}</span></>}
+        description={content.contactSection.description}
       />
 
       <ContactEmailForm email={contact.email} />
