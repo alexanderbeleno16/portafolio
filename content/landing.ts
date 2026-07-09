@@ -167,7 +167,7 @@ export const landingContent = {
       {
         icon: "OPS",
         title: "DevOps & Cloud",
-        tags: ["Docker", "Vercel", "GitHub Actions", "Portainer"],
+        tags: ["Docker", "Vercel", "GitHub Actions", "Portainer", "VPS"],
       },
     ],
     projectsSection: {
@@ -289,6 +289,16 @@ export const landingContent = {
         tags: ["Next.js", "HeroUI", "TypeScript", "FastAPI", "SQLAlchemy", "Supabase"],
         primaryAction: "Demo",
         demoHref: "https://optic-ai-three.vercel.app/login",
+      },
+      {
+        title: "MyKondo",
+        description:
+          "Plataforma en desarrollo para la gestión operativa de conjuntos residenciales, con identidad multi-tenant, propiedades, bandeja de comunicaciones asistidas por IA y flujos de aprobación.",
+        image: "/projects/en_construccion.png",
+        gallery: ["/projects/en_construccion.png"],
+        alt: "Aviso visual de proyecto MyKondo en construcción.",
+        tags: ["React Native", "Expo", "TypeScript", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+        primaryAction: "Demo",
       },
     ],
     timelineSection: {
@@ -571,7 +581,7 @@ export const landingContent = {
       {
         icon: "OPS",
         title: "DevOps & Cloud",
-        tags: ["Docker", "Vercel", "GitHub Actions", "Portainer"],
+        tags: ["Docker", "Vercel", "GitHub Actions", "Portainer", "VPS"],
       },
     ],
     projectsSection: {
@@ -693,6 +703,16 @@ export const landingContent = {
         tags: ["Next.js", "HeroUI", "TypeScript", "FastAPI", "SQLAlchemy", "Supabase"],
         primaryAction: "Demo",
         demoHref: "https://optic-ai-three.vercel.app/login",
+      },
+      {
+        title: "MyKondo",
+        description:
+          "A work-in-progress platform for residential community operations, with multi-tenant identity, properties, an AI-assisted communications inbox, and approval workflows.",
+        image: "/projects/en_construccion.png",
+        gallery: ["/projects/en_construccion.png"],
+        alt: "MyKondo project under construction notice.",
+        tags: ["React Native", "Expo", "TypeScript", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+        primaryAction: "Demo",
       },
     ],
     timelineSection: {
