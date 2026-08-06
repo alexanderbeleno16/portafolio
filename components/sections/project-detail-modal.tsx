@@ -25,11 +25,29 @@ const MAX_ZOOM_LEVEL = 2;
 const ZOOM_STEP = 0.25;
 const INITIAL_VISIBLE_GALLERY_ITEMS = 6;
 const GALLERY_ITEMS_BATCH = 4;
+const FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
 
 function formatTemplate(template: string, values: Record<string, string | number>) {
   return Object.entries(values).reduce(
     (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
     template,
+  );
+}
+
+function getFocusableElements(container: HTMLElement | null) {
+  if (!container) {
+    return [];
+  }
+
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+    (element) => !element.hasAttribute("hidden") && element.getAttribute("aria-hidden") !== "true",
   );
 }
 
@@ -45,7 +63,13 @@ export function ProjectDetailModal({
   const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [expandedGalleryBatches, setExpandedGalleryBatches] = useState(0);
+  const dialogRef = useRef<HTMLElement>(null);
+  const fullscreenDialogRef = useRef<HTMLDivElement>(null);
+  const closeModalButtonRef = useRef<HTMLButtonElement>(null);
   const closeFullscreenButtonRef = useRef<HTMLButtonElement>(null);
+  const fullscreenTriggerRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement>(null);
+  const wasFullscreenOpenRef = useRef(false);
   const isFullscreenOpen = fullscreenIndex !== null;
   const visibleGalleryCount = Math.min(
     project.gallery.length,
@@ -101,16 +125,65 @@ export function ProjectDetailModal({
     }
 
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const activeElement = document.activeElement;
 
-    const closeOnEscape = (event: KeyboardEvent) => {
+    previouslyFocusedElementRef.current =
+      activeElement instanceof HTMLElement ? activeElement : null;
+    document.body.style.overflow = "hidden";
+    closeModalButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previouslyFocusedElementRef.current?.focus();
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const handleDialogKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
+
         if (isFullscreenOpen) {
           closeFullscreen();
           return;
         }
 
         closeModal();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusScope = isFullscreenOpen
+          ? fullscreenDialogRef.current
+          : dialogRef.current;
+        const focusableElements = getFocusableElements(focusScope);
+
+        if (focusableElements.length === 0) {
+          event.preventDefault();
+          return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const activeElement = document.activeElement;
+        const focusIsOutsideScope =
+          !(activeElement instanceof Node) || !focusScope?.contains(activeElement);
+
+        if (event.shiftKey && (activeElement === firstElement || focusIsOutsideScope)) {
+          event.preventDefault();
+          lastElement.focus();
+          return;
+        }
+
+        if (!event.shiftKey && (activeElement === lastElement || focusIsOutsideScope)) {
+          event.preventDefault();
+          firstElement.focus();
+          return;
+        }
       }
 
       if (!isFullscreenOpen) {
@@ -128,24 +201,30 @@ export function ProjectDetailModal({
       }
     };
 
-    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("keydown", handleDialogKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("keydown", handleDialogKeyDown);
     };
   }, [
     closeFullscreen,
+    closeModal,
     isFullscreenOpen,
     isOpen,
-    closeModal,
     showNextImage,
     showPreviousImage,
   ]);
 
   useEffect(() => {
     if (isFullscreenOpen) {
+      wasFullscreenOpenRef.current = true;
       closeFullscreenButtonRef.current?.focus();
+      return;
+    }
+
+    if (wasFullscreenOpenRef.current) {
+      wasFullscreenOpenRef.current = false;
+      fullscreenTriggerRef.current?.focus();
     }
   }, [isFullscreenOpen, fullscreenIndex]);
 
@@ -154,46 +233,56 @@ export function ProjectDetailModal({
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-6">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-0 sm:px-4 sm:py-6">
       <button
         type="button"
-        aria-label={formatTemplate(projectActions.closeDetail, { project: project.title })}
-        className="absolute inset-0 cursor-default bg-background/85 backdrop-blur-md"
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 cursor-default bg-background/90"
         onClick={closeModal}
       />
 
       <section
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="relative z-10 flex max-h-[88vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-tertiary/25 bg-surface shadow-[0_32px_120px_rgba(0,0,0,0.55)]"
+        aria-hidden={isFullscreenOpen || undefined}
+        className="project-modal-window relative z-10 flex h-[100dvh] max-h-[100dvh] w-full flex-col overflow-hidden border border-white/10 bg-[#101114] shadow-[0_32px_120px_rgba(0,0,0,0.62)] sm:h-auto sm:max-h-[88vh] sm:max-w-6xl sm:rounded-[1.5rem]"
       >
-        <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-5 md:px-7">
-          <div>
-            <p className="label-caps text-tertiary">{projectActions.projectDetailLabel}</p>
-            <h3
-              id={titleId}
-              className="mt-2 text-3xl font-black tracking-[-0.05em] text-on-surface md:text-5xl"
-            >
-              {project.title}
-            </h3>
+        <div className="project-modal-titlebar relative flex min-h-14 shrink-0 items-center border-b border-white/10 bg-[#1b1d21] px-4">
+          <div className="flex items-center gap-2" aria-hidden="true">
+            <span className="h-3 w-3 rounded-full border border-black/20 bg-[#ff5f57] shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]" />
+            <span className="h-3 w-3 rounded-full border border-black/20 bg-[#febc2e] shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]" />
+            <span className="h-3 w-3 rounded-full border border-black/20 bg-[#28c840] shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]" />
           </div>
+          <p className="pointer-events-none absolute left-1/2 max-w-[52%] -translate-x-1/2 truncate font-mono text-xs font-medium tracking-[0.02em] text-white/60 sm:max-w-[62%]">
+            {project.title}
+          </p>
           <button
+            ref={closeModalButtonRef}
             type="button"
             aria-label={projectActions.closeModal}
             onClick={closeModal}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-on-surface transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
+            className="ml-auto inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-on-surface transition-colors duration-200 hover:border-white/20 hover:bg-white/[0.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
           >
             <XIcon className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="overflow-y-auto px-5 py-6 md:px-7 md:py-8">
-          <div>
+        <div className="project-modal-content min-h-0 flex-1 overflow-y-auto px-5 py-6 md:px-8 md:py-8">
+          <header>
+            <p className="label-caps text-tertiary">{projectActions.projectDetailLabel}</p>
+            <h3
+              id={titleId}
+              className="mt-3 text-3xl font-black tracking-[-0.05em] text-on-surface md:text-5xl"
+            >
+              {project.title}
+            </h3>
             <p
               id={descriptionId}
-              className="max-w-4xl text-lg leading-8 text-on-surface-variant"
+              className="mt-5 max-w-4xl text-lg leading-8 text-on-surface-variant"
             >
               {project.description}
             </p>
@@ -218,17 +307,18 @@ export function ProjectDetailModal({
                 </ButtonLink>
               </div>
             ) : null}
-          </div>
+          </header>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {visibleGallery.map((photo, index) => (
               <figure
                 key={`${photo}-modal`}
-                className="overflow-hidden rounded-2xl border border-white/10 bg-background/70"
+                className="overflow-hidden rounded-2xl border border-white/10 bg-[#090a0c]"
               >
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={(event) => {
+                    fullscreenTriggerRef.current = event.currentTarget;
                     setFullscreenIndex(index);
                     setZoomLevel(1);
                   }}
@@ -246,9 +336,9 @@ export function ProjectDetailModal({
                     })}
                     fill
                     sizes="(min-width: 1536px) 36rem, (min-width: 768px) 44vw, 92vw"
-                    className="object-contain p-2 transition duration-300 group-hover:scale-[1.02]"
+                    className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
                   />
-                  <span className="label-caps absolute bottom-3 right-3 rounded-full border border-white/15 bg-background/80 px-3 py-2 text-xs text-on-surface backdrop-blur-md">
+                  <span className="label-caps absolute bottom-3 right-3 rounded-full border border-white/15 bg-[#101114]/95 px-3 py-2 text-xs text-on-surface">
                     {projectActions.expand}
                   </span>
                 </button>
@@ -284,7 +374,8 @@ export function ProjectDetailModal({
 
       {isFullscreenOpen && (
         <div
-          className="fixed inset-0 z-[90] flex flex-col bg-background/95 px-4 py-5 backdrop-blur-xl"
+          ref={fullscreenDialogRef}
+          className="project-fullscreen-gallery fixed inset-0 z-[90] flex flex-col bg-background/98 px-4 py-5"
           role="dialog"
           aria-modal="true"
           aria-label={formatTemplate(projectActions.fullscreenGallery, { project: project.title })}
@@ -330,7 +421,7 @@ export function ProjectDetailModal({
               type="button"
               onClick={showPreviousImage}
               aria-label={projectActions.previousImage}
-              className="absolute left-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface/75 text-on-surface shadow-lg backdrop-blur-md transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:left-4"
+              className="absolute left-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface text-on-surface shadow-lg transition-colors hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:left-4"
             >
               <ChevronLeftIcon className="h-6 w-6" />
             </button>
@@ -357,7 +448,7 @@ export function ProjectDetailModal({
               type="button"
               onClick={showNextImage}
               aria-label={projectActions.nextImage}
-              className="absolute right-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface/75 text-on-surface shadow-lg backdrop-blur-md transition hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:right-4"
+              className="absolute right-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface text-on-surface shadow-lg transition-colors hover:border-tertiary/60 hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary md:right-4"
             >
               <ChevronRightIcon className="h-6 w-6" />
             </button>

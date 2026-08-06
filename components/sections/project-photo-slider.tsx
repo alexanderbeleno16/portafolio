@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/language/language-provider";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
 const SLIDE_INTERVAL_MS = 4000;
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 type ProjectPhotoSliderProps = {
   gallery: readonly string[];
@@ -28,7 +29,14 @@ export function ProjectPhotoSlider({
   title,
 }: ProjectPhotoSliderProps) {
   const { content } = useLanguage();
+  const sliderRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isIntersecting, setIsIntersecting] = useState(
+    () => typeof IntersectionObserver === "undefined",
+  );
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
   const safeActiveIndex = gallery.length > 0 ? activeIndex % gallery.length : 0;
   const activePhoto = gallery[safeActiveIndex];
   const hasMultiplePhotos = gallery.length > 1;
@@ -44,7 +52,61 @@ export function ProjectPhotoSlider({
   };
 
   useEffect(() => {
-    if (!hasMultiplePhotos) {
+    const sliderElement = sliderRef.current;
+
+    if (!sliderElement) {
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsIntersecting(Boolean(entry?.isIntersecting)),
+      { threshold: 0.1 },
+    );
+
+    observer.observe(sliderElement);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateDocumentVisibility = () => {
+      setIsDocumentVisible(document.visibilityState !== "hidden");
+    };
+
+    updateDocumentVisibility();
+    document.addEventListener("visibilitychange", updateDocumentVisibility);
+    return () => document.removeEventListener("visibilitychange", updateDocumentVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+    const updateMotionPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updateMotionPreference();
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateMotionPreference);
+      return () => mediaQuery.removeEventListener("change", updateMotionPreference);
+    }
+
+    mediaQuery.addListener(updateMotionPreference);
+    return () => mediaQuery.removeListener(updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (
+      !hasMultiplePhotos ||
+      !isIntersecting ||
+      !isDocumentVisible ||
+      prefersReducedMotion ||
+      isUserInteracting
+    ) {
       return;
     }
 
@@ -53,14 +115,33 @@ export function ProjectPhotoSlider({
     }, SLIDE_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
-  }, [gallery.length, hasMultiplePhotos]);
+  }, [
+    gallery.length,
+    hasMultiplePhotos,
+    isDocumentVisible,
+    isIntersecting,
+    isUserInteracting,
+    prefersReducedMotion,
+  ]);
 
   if (!activePhoto) {
     return null;
   }
 
   return (
-    <div className="group/slider relative aspect-video overflow-hidden">
+    <div
+      ref={sliderRef}
+      data-testid="project-photo-slider"
+      className="project-photo-slider group/slider relative aspect-video overflow-hidden"
+      onMouseEnter={() => setIsUserInteracting(true)}
+      onMouseLeave={() => setIsUserInteracting(false)}
+      onFocusCapture={() => setIsUserInteracting(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsUserInteracting(false);
+        }
+      }}
+    >
       <Image
         key={activePhoto}
         src={activePhoto}

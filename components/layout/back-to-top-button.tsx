@@ -57,10 +57,10 @@ export function BackToTopButton() {
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
       className={cn(
-        "fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-tertiary/35 bg-surface/70 text-tertiary shadow-[0_0_28px_rgba(76,215,246,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-tertiary hover:bg-tertiary hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary",
+        "fixed bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] right-4 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-tertiary/35 bg-surface/70 text-tertiary shadow-[0_0_28px_rgba(76,215,246,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-tertiary hover:bg-tertiary hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary motion-reduce:transform-none motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:bottom-[5.75rem] sm:right-6",
         isVisible
           ? "translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-5 opacity-0",
+          : "pointer-events-none translate-y-5 opacity-0 motion-reduce:translate-y-0",
       )}
     >
       <ArrowUpIcon className="h-5 w-5" />

@@ -7,6 +7,7 @@ import { SkillsSection } from "@/components/sections/skills-section";
 import { StudiesSection } from "@/components/sections/studies-section";
 import { TimelineSection } from "@/components/sections/timeline-section";
 import { BackToTopButton } from "@/components/layout/back-to-top-button";
+import { PortfolioChatbot } from "@/components/layout/portfolio-chatbot";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { LanguageProvider } from "@/components/language/language-provider";
@@ -25,6 +26,7 @@ export default function HomePage() {
         <ServicesSection />
         <ContactSection />
       </main>
+      <PortfolioChatbot />
       <BackToTopButton />
       <SiteFooter />
     </LanguageProvider>

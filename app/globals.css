@@ -557,6 +557,69 @@ a {
   }
 }
 
+.project-photo-slider {
+  contain: layout paint;
+}
+
+.project-modal-content {
+  overscroll-behavior: contain;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+.project-modal-titlebar {
+  padding-top: env(safe-area-inset-top);
+}
+
+.project-fullscreen-gallery {
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 639px) {
+  .glass-panel {
+    backdrop-filter: blur(14px) saturate(120%);
+  }
+
+  .hero-grid::after {
+    filter: blur(52px);
+    opacity: 0.72;
+  }
+
+  .hero-glass-stage::before,
+  .hero-glass-aurora,
+  .hero-grid .glass-panel.micro-border::before,
+  .hero-grid .glass-panel.micro-border::after,
+  .glow-orb {
+    animation: none;
+  }
+
+  .hero-glass-stage::before,
+  .hero-glass-aurora {
+    filter: blur(28px);
+  }
+
+  .hero-glass-aurora {
+    opacity: 0.42;
+  }
+
+  .hero-glass-aurora-three {
+    display: none;
+  }
+
+  .hero-grid .glass-panel.micro-border::after {
+    filter: blur(10px);
+  }
+
+  .glow-orb {
+    filter: blur(48px);
+    opacity: 0.66;
+  }
+
+  #experiencia article {
+    backdrop-filter: blur(12px) saturate(120%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

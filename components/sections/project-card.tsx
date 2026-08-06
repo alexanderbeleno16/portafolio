@@ -1,14 +1,21 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { GlassPanel } from "@/components/ui/glass-panel";
 import { useLanguage } from "@/components/language/language-provider";
-import { ProjectDetailModal } from "@/components/sections/project-detail-modal";
 import { ProjectPhotoSlider } from "@/components/sections/project-photo-slider";
 import { TechBadge } from "@/components/ui/tech-badge";
 import type { Project } from "@/content/landing";
+
+const loadProjectDetailModal = () =>
+  import("@/components/sections/project-detail-modal");
+const ProjectDetailModal = dynamic(
+  () => loadProjectDetailModal().then((module) => module.ProjectDetailModal),
+  { ssr: false },
+);
 
 function formatTemplate(template: string, values: Record<string, string>) {
   return Object.entries(values).reduce(
@@ -22,9 +29,13 @@ const actionButtonClassName =
 const secondaryButtonClassName =
   "inline-flex h-12 min-w-[7.5rem] flex-1 items-center justify-center rounded-full border border-white/15 px-5 text-sm font-bold tracking-[-0.01em] text-on-surface transition duration-300 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary sm:flex-none sm:min-w-[8rem]";
 
-function ProjectDemoAction({ project }: { project: Project }) {
-  const { content } = useLanguage();
-
+function ProjectDemoAction({
+  project,
+  ariaLabel,
+}: {
+  project: Project;
+  ariaLabel: string;
+}) {
   if (!("demoHref" in project) || !project.demoHref) {
     return null;
   }
@@ -33,7 +44,7 @@ function ProjectDemoAction({ project }: { project: Project }) {
     <ButtonLink
       href={project.demoHref}
       target="_blank"
-      ariaLabel={formatTemplate(content.projectActions.openDemo, { project: project.title })}
+      ariaLabel={ariaLabel}
       className={actionButtonClassName}
     >
       {project.primaryAction}
@@ -47,6 +58,12 @@ export function ProjectCard({ project }: { project: Project }) {
   const viewDetailLabel = formatTemplate(content.projectActions.viewDetail, {
     project: project.title,
   });
+  const openDemoLabel = formatTemplate(content.projectActions.openDemo, {
+    project: project.title,
+  });
+  const preloadProjectDetail = () => {
+    void loadProjectDetailModal();
+  };
 
   return (
     <>
@@ -65,6 +82,8 @@ export function ProjectCard({ project }: { project: Project }) {
             <button
               type="button"
               onClick={() => setIsDetailOpen(true)}
+              onFocus={preloadProjectDetail}
+              onPointerEnter={preloadProjectDetail}
               aria-label={viewDetailLabel}
               className="text-left transition hover:text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary"
             >
@@ -84,10 +103,12 @@ export function ProjectCard({ project }: { project: Project }) {
             ))}
           </div>
           <div className="mt-auto flex min-h-[4.5rem] flex-wrap items-center gap-3 pt-7 sm:gap-4">
-            <ProjectDemoAction project={project} />
+            <ProjectDemoAction project={project} ariaLabel={openDemoLabel} />
             <button
               type="button"
               onClick={() => setIsDetailOpen(true)}
+              onFocus={preloadProjectDetail}
+              onPointerEnter={preloadProjectDetail}
               className={secondaryButtonClassName}
               aria-label={viewDetailLabel}
             >
@@ -97,11 +118,13 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
       </GlassPanel>
 
-      <ProjectDetailModal
-        project={project}
-        isOpen={isDetailOpen}
-        onClose={() => setIsDetailOpen(false)}
-      />
+      {isDetailOpen ? (
+        <ProjectDetailModal
+          project={project}
+          isOpen
+          onClose={() => setIsDetailOpen(false)}
+        />
+      ) : null}
     </>
   );
 }

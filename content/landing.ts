@@ -8,7 +8,7 @@ export const externalLinks = {
   github: "https://github.com/alexanderbeleno16",
   githubRepositories: "https://github.com/alexanderbeleno16?tab=repositories",
   linkedin: "https://www.linkedin.com/in/alexander-bele%C3%B1o/",
-  cv: "/cv/alexander-beleno-cv-es.pdf",
+  cv: "https://drive.google.com/file/d/1WqkqKXfaJaIT4ruQyvO7F8gGOBqHbywI/view?usp=drive_link",
 } as const;
 
 export const contact = {
@@ -426,6 +426,60 @@ export const landingContent = {
       madeBy:
         "Hecho con ❤️ por Ing. Alexander Beleño, Ingeniero de sistemas y computación.",
     },
+    chatbot: {
+      triggerLabel: "Abrir asistente del portafolio",
+      title: "Asistente del portafolio",
+      subtitle: "Respuestas rápidas basadas en mi hoja de vida.",
+      statusLabel: "Disponible",
+      closeLabel: "Cerrar asistente",
+      resetLabel: "Elegir otra pregunta",
+      questionsLabel: "Preguntas sugeridas",
+      answerLabel: "Respuesta del asistente",
+      questions: [
+        {
+          id: "profile",
+          question: "¿Cuál es el perfil profesional de Alexander?",
+          answer:
+            "Alexander es Ingeniero de Sistemas y Computación con más de 5 años de experiencia. Se enfoca en crear aplicaciones web, plataformas empresariales y soluciones full stack escalables, eficientes y mantenibles.",
+        },
+        {
+          id: "experience",
+          question: "¿Qué experiencia laboral tiene?",
+          answer:
+            "Trabaja como Ingeniero de desarrollo en Energy Computer Systems S.A.S desde enero de 2023. Antes fue Desarrollador de software en Lupa Jurídica S.A.S y Aprendiz interno en JUMIO S.A.S.",
+        },
+        {
+          id: "skills",
+          question: "¿Cuál es su stack técnico?",
+          answer:
+            "Su stack incluye React, Angular, Next.js y TypeScript en frontend; FastAPI, Python, Node.js, Java y Spring Boot en backend; PostgreSQL, Oracle, MySQL, Redis y Supabase; además de Docker, Vercel y GitHub Actions.",
+        },
+        {
+          id: "education",
+          question: "¿Cuál es su formación académica?",
+          answer:
+            "Es Ingeniero de Sistemas y Computación y cuenta con un diplomado en seguridad de redes informáticas. También es Tecnólogo en análisis y desarrollo de sistemas de información y Técnico en desarrollo de software.",
+        },
+        {
+          id: "projects",
+          question: "¿Qué proyectos destacados ha desarrollado?",
+          answer:
+            "El portafolio destaca Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo: soluciones de monitoreo, educación, comercio, gestión clínica y administración residencial.",
+        },
+        {
+          id: "specialties",
+          question: "¿En qué áreas se especializa?",
+          answer:
+            "Se especializa en arquitectura escalable, APIs REST, optimización de bases de datos, integración de sistemas, despliegues con Docker, automatización e IA aplicada al ciclo de ingeniería.",
+        },
+        {
+          id: "contact",
+          question: "¿Cómo puedo contactarlo?",
+          answer:
+            "Puedes escribirle a ing.alexbeleno@gmail.com. Está ubicado en Barranquilla, Colombia, y está abierto a proyectos, oportunidades laborales y nuevas conexiones.",
+        },
+      ],
+    },
     backToTop: {
       ariaLabel: "Volver al inicio",
     },
@@ -839,6 +893,60 @@ export const landingContent = {
       cvLabel: "Spanish CV PDF",
       madeBy:
         "Made with ❤️ by Eng. Alexander Beleño, Systems and Computer Engineer.",
+    },
+    chatbot: {
+      triggerLabel: "Open portfolio assistant",
+      title: "Portfolio assistant",
+      subtitle: "Quick answers based on my résumé.",
+      statusLabel: "Available",
+      closeLabel: "Close assistant",
+      resetLabel: "Choose another question",
+      questionsLabel: "Suggested questions",
+      answerLabel: "Assistant answer",
+      questions: [
+        {
+          id: "profile",
+          question: "What is Alexander's professional profile?",
+          answer:
+            "Alexander is a Systems and Computer Engineer with more than 5 years of experience. He focuses on building scalable, efficient, and maintainable web applications, enterprise platforms, and full stack solutions.",
+        },
+        {
+          id: "experience",
+          question: "What professional experience does he have?",
+          answer:
+            "He has worked as a Development Engineer at Energy Computer Systems S.A.S since January 2023. Previously, he was a Software Developer at Lupa Jurídica S.A.S and an Internal Trainee at JUMIO S.A.S.",
+        },
+        {
+          id: "skills",
+          question: "What is his technical stack?",
+          answer:
+            "His stack includes React, Angular, Next.js, and TypeScript for frontend; FastAPI, Python, Node.js, Java, and Spring Boot for backend; PostgreSQL, Oracle, MySQL, Redis, and Supabase; plus Docker, Vercel, and GitHub Actions.",
+        },
+        {
+          id: "education",
+          question: "What is his educational background?",
+          answer:
+            "He holds a degree in Systems and Computer Engineering and a diploma in computer network security. He is also a Technologist in information systems analysis and development and a Software development technician.",
+        },
+        {
+          id: "projects",
+          question: "Which featured projects has he built?",
+          answer:
+            "The portfolio features Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI, and MyKondo: solutions for monitoring, education, commerce, clinical management, and residential administration.",
+        },
+        {
+          id: "specialties",
+          question: "Which areas does he specialize in?",
+          answer:
+            "He specializes in scalable architecture, REST APIs, database optimization, system integration, Docker deployments, automation, and AI applied to the engineering lifecycle.",
+        },
+        {
+          id: "contact",
+          question: "How can I contact him?",
+          answer:
+            "You can email him at ing.alexbeleno@gmail.com. He is based in Barranquilla, Colombia, and is open to projects, job opportunities, and new connections.",
+        },
+      ],
     },
     backToTop: {
       ariaLabel: "Back to top",
