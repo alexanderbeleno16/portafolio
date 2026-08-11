@@ -7,7 +7,19 @@ import { LanguageProvider } from "@/components/language/language-provider";
 import { ProjectDetailModal } from "@/components/sections/project-detail-modal";
 import { landingContent } from "@/content/landing";
 
-const project = landingContent.es.projects[0];
+function getProjectFixture() {
+  const fixture = landingContent.es.projects.find(
+    (candidate) => candidate.title === "Colombia Monitor",
+  );
+
+  if (!fixture) {
+    throw new Error("Colombia Monitor fixture is missing");
+  }
+
+  return fixture;
+}
+
+const project = getProjectFixture();
 
 vi.mock("next/image", () => ({
   default: ({ alt, src }: { alt: string; src: string }) =>

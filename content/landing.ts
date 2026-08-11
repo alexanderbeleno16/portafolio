@@ -245,6 +245,23 @@ export const landingContent = {
         demoStatus: "offline",
       },
       {
+        title: "KOA Verify",
+        description:
+          "Prototipo autohospedado de verificación facial de identidad con captura guiada o carga de selfie y documento, validación de calidad de imagen en el servidor y comparación facial 1:1.",
+        image: "/projects/reto-koa/cap1.png",
+        gallery: [
+          "/projects/reto-koa/cap1.png",
+          "/projects/reto-koa/cap2.png",
+          "/projects/reto-koa/cap3.png",
+          "/projects/reto-koa/cap4.png",
+          "/projects/reto-koa/cap5.png",
+        ],
+        alt: "Flujo de KOA Verify para captura guiada y comparación facial.",
+        tags: ["Angular", "TypeScript", "FastAPI", "OpenCV", "CompreFace", "Docker"],
+        primaryAction: "Demo",
+        demoHref: "https://retokoaverify.online/",
+      },
+      {
         title: "DuoLuxe Essence",
         description:
           "Monorepo premium para fragancias con landing pública, panel administrativo, catálogo, órdenes, clientes, WhatsApp y slider sincronizados desde Supabase.",
@@ -464,7 +481,7 @@ export const landingContent = {
           id: "projects",
           question: "¿Qué proyectos destacados ha desarrollado?",
           answer:
-            "El portafolio destaca Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo: soluciones de monitoreo, educación, comercio, gestión clínica y administración residencial.",
+            "El portafolio destaca KOA Verify, Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo: soluciones de verificación facial, monitoreo, educación, comercio, gestión clínica y administración residencial.",
         },
         {
           id: "specialties",
@@ -713,6 +730,23 @@ export const landingContent = {
         demoStatus: "offline",
       },
       {
+        title: "KOA Verify",
+        description:
+          "Self-hosted facial identity-verification prototype with guided selfie and document capture or upload, server-side image-quality validation, and 1:1 face comparison.",
+        image: "/projects/reto-koa/cap1.png",
+        gallery: [
+          "/projects/reto-koa/cap1.png",
+          "/projects/reto-koa/cap2.png",
+          "/projects/reto-koa/cap3.png",
+          "/projects/reto-koa/cap4.png",
+          "/projects/reto-koa/cap5.png",
+        ],
+        alt: "KOA Verify flow for guided capture and face comparison.",
+        tags: ["Angular", "TypeScript", "FastAPI", "OpenCV", "CompreFace", "Docker"],
+        primaryAction: "Demo",
+        demoHref: "https://retokoaverify.online/",
+      },
+      {
         title: "DuoLuxe Essence",
         description:
           "Premium fragrance monorepo with a public landing page, admin panel, catalog, orders, customers, WhatsApp, and sliders synchronized from Supabase.",
@@ -932,7 +966,7 @@ export const landingContent = {
           id: "projects",
           question: "Which featured projects has he built?",
           answer:
-            "The portfolio features Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI, and MyKondo: solutions for monitoring, education, commerce, clinical management, and residential administration.",
+            "The portfolio features KOA Verify, Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI, and MyKondo: solutions for facial verification, monitoring, education, commerce, clinical management, and residential administration.",
         },
         {
           id: "specialties",

@@ -70,14 +70,14 @@ describe("PortfolioChatbot", () => {
 
     const question = screen.getByText(/proyectos destacados ha desarrollado/);
     const answer = screen.getByText(
-      /Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo/,
+      /KOA Verify, Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo/,
       { selector: '[data-message-role="assistant-answer"]' },
     );
     const resetButton = screen.getByRole("button", { name: "Elegir otra pregunta" });
 
     expect(screen.getByRole("status")).toBe(liveRegion);
     expect(liveRegion).toHaveTextContent(
-      /Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo/,
+      /KOA Verify, Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI y MyKondo/,
     );
     expect(question.closest('[data-message-direction="sent"]')).toBeInTheDocument();
     expect(answer.closest('[data-message-direction="received"]')).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe("PortfolioChatbot", () => {
     );
     await user.click(
       screen.getByRole("button", {
-        name: /perfil profesional de Alexander/,
+        name: /proyectos destacados ha desarrollado/,
       }),
     );
     await user.click(
@@ -116,12 +116,15 @@ describe("PortfolioChatbot", () => {
       screen.getByRole("dialog", { name: "Portfolio assistant" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("What is Alexander's professional profile?"),
+      screen.getByText("Which featured projects has he built?"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/more than 5 years of experience/, {
-        selector: '[data-message-role="assistant-answer"]',
-      }),
+      screen.getByText(
+        /KOA Verify, Colombia Monitor, EduNotas, DuoLuxe Essence, Optic-AI, and MyKondo/,
+        {
+          selector: '[data-message-role="assistant-answer"]',
+        },
+      ),
     ).toBeInTheDocument();
   });
 
