@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
@@ -30,9 +30,11 @@ describe("KOA Verify portfolio content", () => {
   });
 
   it.each(["es", "en"] as const)(
-    "keeps the %s project first with the approved public assets and demo",
+    "keeps the %s project with the approved public assets and demo",
     (language) => {
-      const project = landingContent[language].projects[0];
+      const project = landingContent[language].projects.find(
+        (candidate) => candidate.title === "KOA Verify",
+      );
 
       expect(project).toMatchObject({
         title: "KOA Verify",
@@ -51,4 +53,48 @@ describe("KOA Verify portfolio content", () => {
       });
     },
   );
+});
+
+const paymentGalleryAssets = [
+  "/projects/product-payment/catalog.jpg",
+  "/projects/product-payment/product-detail.jpg",
+  "/projects/product-payment/checkout.jpg",
+];
+
+describe("Product Payment portfolio content", () => {
+  it.each(["es", "en"] as const)(
+    "shows the %s project with its authentic gallery, demo and verified stack",
+    (language) => {
+      const projects = landingContent[language].projects;
+      const project = projects.find(
+        (candidate) => candidate.title === "Product Payment — ShopiFast",
+      );
+
+      expect(project).toMatchObject({
+        title: "Product Payment — ShopiFast",
+        image: paymentGalleryAssets[0],
+        gallery: paymentGalleryAssets,
+        demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
+        primaryAction: "Demo",
+        tags: [
+          "React", "TypeScript", "Vite", "Redux Toolkit", "NestJS",
+          "TypeORM", "PostgreSQL", "Docker", "Jest", "AWS S3",
+          "AWS CloudFront", "AWS ECS Fargate", "AWS RDS", "GitHub Actions",
+        ],
+      });
+      expect(project?.description).toMatch(/checkout/i);
+      expect(project?.description).toMatch(/JWE/);
+      expect(project?.description).toMatch(/AWS/);
+      expect(projects.map((candidate) => candidate.title)).toEqual([
+        "Colombia Monitor", "EduNotas", "KOA Verify", "DuoLuxe Essence",
+        "Optic-AI", "Product Payment — ShopiFast", "MyKondo",
+      ]);
+    },
+  );
+
+  it("ships every referenced screenshot as a local public asset", () => {
+    for (const asset of paymentGalleryAssets) {
+      expect(existsSync(join(process.cwd(), "public", asset))).toBe(true);
+    }
+  });
 });

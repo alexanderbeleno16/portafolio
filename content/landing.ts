@@ -308,6 +308,25 @@ export const landingContent = {
         demoHref: "https://optic-ai-three.vercel.app/login",
       },
       {
+        title: "Product Payment — ShopiFast",
+        description:
+          "Tienda de demostración con catálogo y checkout de un producto: cotizaciones del servidor, tokenización de tarjeta cifrada con JWE, pagos idempotentes y recuperación de estado. Frontend React/Vite con Redux Toolkit; API NestJS con arquitectura hexagonal, TypeORM y PostgreSQL. Despliegue AWS en S3/CloudFront, ECS Fargate y RDS, con pruebas Jest y CI/CD mediante GitHub Actions.",
+        image: "/projects/product-payment/catalog.jpg",
+        gallery: [
+          "/projects/product-payment/catalog.jpg",
+          "/projects/product-payment/product-detail.jpg",
+          "/projects/product-payment/checkout.jpg",
+        ],
+        alt: "Capturas reales de ShopiFast: catálogo de productos, detalle del producto y formulario de tarjeta y entrega sin enviar.",
+        tags: [
+          "React", "TypeScript", "Vite", "Redux Toolkit", "NestJS",
+          "TypeORM", "PostgreSQL", "Docker", "Jest", "AWS S3",
+          "AWS CloudFront", "AWS ECS Fargate", "AWS RDS", "GitHub Actions",
+        ],
+        primaryAction: "Demo",
+        demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
+      },
+      {
         title: "MyKondo",
         description:
           "Plataforma en desarrollo para la gestión operativa de conjuntos residenciales, con identidad multi-tenant, propiedades, bandeja de comunicaciones asistidas por IA y flujos de aprobación.",
@@ -791,6 +810,25 @@ export const landingContent = {
         tags: ["Next.js", "HeroUI", "TypeScript", "FastAPI", "SQLAlchemy", "Supabase"],
         primaryAction: "Demo",
         demoHref: "https://optic-ai-three.vercel.app/login",
+      },
+      {
+        title: "Product Payment — ShopiFast",
+        description:
+          "Demo storefront with a product catalog and single-product checkout: server-calculated quotes, JWE-encrypted card tokenization, idempotent payments, and recoverable status. React/Vite frontend with Redux Toolkit; hexagonal NestJS API with TypeORM and PostgreSQL. AWS deployment on S3/CloudFront, ECS Fargate, and RDS, with Jest tests and GitHub Actions CI/CD.",
+        image: "/projects/product-payment/catalog.jpg",
+        gallery: [
+          "/projects/product-payment/catalog.jpg",
+          "/projects/product-payment/product-detail.jpg",
+          "/projects/product-payment/checkout.jpg",
+        ],
+        alt: "Real ShopiFast screenshots: product catalog, product details, and unsubmitted card and delivery form.",
+        tags: [
+          "React", "TypeScript", "Vite", "Redux Toolkit", "NestJS",
+          "TypeORM", "PostgreSQL", "Docker", "Jest", "AWS S3",
+          "AWS CloudFront", "AWS ECS Fargate", "AWS RDS", "GitHub Actions",
+        ],
+        primaryAction: "Demo",
+        demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
       },
       {
         title: "MyKondo",

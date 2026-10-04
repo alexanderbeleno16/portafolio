@@ -32,8 +32,11 @@ Portafolio profesional de **Alexander Beleño**, ingeniero de sistemas enfocado 
 | 🎓 EduNotas | Angular, FastAPI, SQLAlchemy, Pydantic, Docker | Demo offline |
 | 🧴 DuoLuxe Essence | Astro, Next.js, TailwindCSS, Supabase, Vercel | [Abrir demo en Vercel](https://duoluxe.vercel.app/) |
 | 👁️ Optic-AI | Next.js, HeroUI, TypeScript, FastAPI, SQLAlchemy, Supabase | [Abrir demo en Vercel](https://optic-ai-three.vercel.app/login) |
+| 🛍️ Product Payment — ShopiFast | React, TypeScript, Vite, Redux Toolkit, NestJS, TypeORM, PostgreSQL, Docker, Jest; AWS S3, CloudFront, ECS Fargate, RDS; GitHub Actions | [Abrir demo en AWS](https://d12hv8vhtndguc.cloudfront.net/) |
 
 > Los enlaces de demo salen de `content/landing.ts`; si un proyecto no tiene `demoHref`, se documenta como offline en lugar de inventar una URL.
+
+Las capturas reales de ShopiFast están en `public/projects/product-payment/`: catálogo, detalle del producto y formulario de tarjeta y entrega sin enviar. Se reutilizan en el slider de la tarjeta y la galería del detalle, con contenido en español e inglés. La demo es un entorno de prueba; las capturas no implican un pago enviado ni una entrega verificada.
 
 ## 🛠️ Stack del sitio
 
