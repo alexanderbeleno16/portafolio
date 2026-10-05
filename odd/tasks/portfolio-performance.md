@@ -29,3 +29,7 @@ Next optimizer already active; hero priority, lazy project loading, paused offsc
 - LCP/CLS/longtasks unavailable in CUA read-onlyscope; no globaltiming/frame-rate claim. Shape/filter animation changes deliberately deferred pendingtrace evidence. Originals, hero priority, lazyproject loading, offscreenpause retained.
 - Next: user local review; no remoteauthorization.
 - Work-unit15fad00; native RDD medium/under_budget (69 authored lines), review_due=false; no independent review run or approval claimed. Baseline stays1beb279 for pending slice. Working local branch only.
+
+## Accepted alignment and publication
+- User requests category filters centered only below768px; md+ left alignment. Mechanical section/test correction; RED1failed/8passed thenGREEN9passed; build and browser538center/1440flex-start passed.
+- User explicitly authorizes publication to existing GitHub origin/main and Vercel using configured repo authentication. No force push or new remote service.

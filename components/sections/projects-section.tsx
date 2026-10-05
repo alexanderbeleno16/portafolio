@@ -41,7 +41,7 @@ export function ProjectsSection() {
       />
 
       <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-        <div role="group" aria-label={labels.filterLabel} className="flex flex-wrap gap-2">
+        <div role="group" aria-label={labels.filterLabel} className="flex flex-1 flex-wrap justify-center gap-2 md:justify-start">
           {filterOptions.map((option) => (
             <button
               key={option.id}

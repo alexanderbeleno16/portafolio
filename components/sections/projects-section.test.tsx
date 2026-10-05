@@ -33,6 +33,11 @@ function renderProjects() {
 afterEach(() => { cleanup(); localStorage.clear(); });
 
 describe("project browsing", () => {
+  it("centers mobile category filters and left-aligns larger screens", () => {
+    renderProjects();
+    expect(screen.getByRole("group", { name: "Categorías de proyectos" })).toHaveClass("flex-1", "justify-center", "md:justify-start");
+  });
+
   it("shows all seven compact cards with category counts and a default card view", () => {
     renderProjects();
     expect(screen.getAllByRole("article")).toHaveLength(7);
