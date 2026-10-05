@@ -59,6 +59,8 @@ const paymentGalleryAssets = [
   "/projects/product-payment/catalog.jpg",
   "/projects/product-payment/product-detail.jpg",
   "/projects/product-payment/checkout.jpg",
+  "/projects/product-payment/payment-pending.png",
+  "/projects/product-payment/payment-approved.png",
 ];
 
 describe("Product Payment portfolio content", () => {
@@ -67,11 +69,11 @@ describe("Product Payment portfolio content", () => {
     (language) => {
       const projects = landingContent[language].projects;
       const project = projects.find(
-        (candidate) => candidate.title === "Product Payment — ShopiFast",
+        (candidate) => candidate.title === "Product Payment - ShopiFast",
       );
 
       expect(project).toMatchObject({
-        title: "Product Payment — ShopiFast",
+        title: "Product Payment - ShopiFast",
         image: paymentGalleryAssets[0],
         gallery: paymentGalleryAssets,
         demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
@@ -87,7 +89,7 @@ describe("Product Payment portfolio content", () => {
       expect(project?.description).toMatch(/AWS/);
       expect(projects.map((candidate) => candidate.title)).toEqual([
         "Colombia Monitor", "EduNotas", "KOA Verify", "DuoLuxe Essence",
-        "Optic-AI", "Product Payment — ShopiFast", "MyKondo",
+        "Optic-AI", "Product Payment - ShopiFast", "MyKondo",
       ]);
     },
   );

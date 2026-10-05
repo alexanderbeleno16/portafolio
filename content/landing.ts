@@ -325,7 +325,7 @@ export const landingContent = {
       },
       {
         category: "commerce",
-        title: "Product Payment — ShopiFast",
+        title: "Product Payment - ShopiFast",
         description:
           "Tienda de demostración con catálogo y checkout de un producto: cotizaciones del servidor, tokenización de tarjeta cifrada con JWE, pagos idempotentes y recuperación de estado. Frontend React/Vite con Redux Toolkit; API NestJS con arquitectura hexagonal, TypeORM y PostgreSQL. Despliegue AWS en S3/CloudFront, ECS Fargate y RDS, con pruebas Jest y CI/CD mediante GitHub Actions.",
         image: "/projects/product-payment/catalog.jpg",
@@ -333,8 +333,10 @@ export const landingContent = {
           "/projects/product-payment/catalog.jpg",
           "/projects/product-payment/product-detail.jpg",
           "/projects/product-payment/checkout.jpg",
+          "/projects/product-payment/payment-pending.png",
+          "/projects/product-payment/payment-approved.png",
         ],
-        alt: "Capturas reales de ShopiFast: catálogo de productos, detalle del producto y formulario de tarjeta y entrega sin enviar.",
+        alt: "Capturas de ShopiFast: catálogo, detalle del producto, formulario de tarjeta y entrega, y pantallas de pago pendiente y aprobado.",
         tags: [
           "React", "TypeScript", "Vite", "Redux Toolkit", "NestJS",
           "TypeORM", "PostgreSQL", "Docker", "Jest", "AWS S3",
@@ -844,7 +846,7 @@ export const landingContent = {
       },
       {
         category: "commerce",
-        title: "Product Payment — ShopiFast",
+        title: "Product Payment - ShopiFast",
         description:
           "Demo storefront with a product catalog and single-product checkout: server-calculated quotes, JWE-encrypted card tokenization, idempotent payments, and recoverable status. React/Vite frontend with Redux Toolkit; hexagonal NestJS API with TypeORM and PostgreSQL. AWS deployment on S3/CloudFront, ECS Fargate, and RDS, with Jest tests and GitHub Actions CI/CD.",
         image: "/projects/product-payment/catalog.jpg",
@@ -852,8 +854,10 @@ export const landingContent = {
           "/projects/product-payment/catalog.jpg",
           "/projects/product-payment/product-detail.jpg",
           "/projects/product-payment/checkout.jpg",
+          "/projects/product-payment/payment-pending.png",
+          "/projects/product-payment/payment-approved.png",
         ],
-        alt: "Real ShopiFast screenshots: product catalog, product details, and unsubmitted card and delivery form.",
+        alt: "ShopiFast screenshots: product catalog, product details, card and delivery form, and pending and approved payment screens.",
         tags: [
           "React", "TypeScript", "Vite", "Redux Toolkit", "NestJS",
           "TypeORM", "PostgreSQL", "Docker", "Jest", "AWS S3",

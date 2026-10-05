@@ -25,8 +25,9 @@ export function ProjectsSection() {
       count: content.projects.filter((project) => project.category === id).length,
     })),
   ];
-  const controlClass = (active: boolean) => cn(
-    "inline-flex min-h-10 items-center justify-center gap-2 rounded-full border px-4 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary",
+  const controlClass = (active: boolean, iconOnly = false) => cn(
+    "inline-flex min-h-10 items-center justify-center gap-2 rounded-full border text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary",
+    iconOnly ? "h-10 w-10 px-0" : "px-4",
     active ? "border-tertiary/60 bg-tertiary/10 text-tertiary" : "border-white/15 bg-white/[0.03] text-on-surface-variant hover:border-white/30 hover:text-on-surface",
   );
 
@@ -54,19 +55,20 @@ export function ProjectsSection() {
             </button>
           ))}
         </div>
-        <div role="group" aria-label={labels.viewLabel} className="flex gap-1 rounded-full border border-white/10 p-1">
+        <div role="group" aria-label={labels.viewLabel} className="hidden gap-1 rounded-full border border-white/10 p-1 md:flex">
           {(["cards", "list"] as const).map((view) => (
             <button
               key={view}
               type="button"
+              aria-label={view === "cards" ? labels.cardsLabel : labels.listLabel}
+              title={view === "cards" ? labels.cardsLabel : labels.listLabel}
               aria-pressed={layout === view}
               onClick={() => setLayout(view)}
-              className={controlClass(layout === view)}
+              className={controlClass(layout === view, true)}
             >
               <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
                 {view === "cards" ? <path d="M2 2h6v6H2zM12 2h6v6h-6zM2 12h6v6H2zM12 12h6v6h-6z" /> : <path d="M2 4h2m3 0h11M2 10h2m3 0h11M2 16h2m3 0h11" />}
               </svg>
-              {view === "cards" ? labels.cardsLabel : labels.listLabel}
             </button>
           ))}
         </div>

@@ -46,6 +46,22 @@ describe("project browsing", () => {
     expect(within(payment).queryByText("AWS RDS")).not.toBeInTheDocument();
   });
 
+  it("keeps an accessible icon-only layout switch at desktop breakpoints", async () => {
+    const user = userEvent.setup(); renderProjects();
+    const switchGroup = screen.getByRole("group", { name: "Vista de proyectos" });
+    expect(switchGroup).toHaveClass("hidden", "md:flex");
+    for (const name of ["Tarjetas", "Lista"]) {
+      const button = within(switchGroup).getByRole("button", { name });
+      expect(button).toHaveAttribute("aria-label", name);
+      expect(button).toHaveAttribute("title", name);
+      expect(button).toHaveClass("h-10", "w-10", "px-0");
+      expect(button).toHaveTextContent("");
+    }
+    await user.click(screen.getByRole("button", { name: "English" }));
+    expect(screen.getByRole("button", { name: "Cards" })).toHaveAttribute("title", "Cards");
+    expect(screen.getByRole("button", { name: "List" })).toHaveAttribute("title", "List");
+  });
+
   it("gives Demo and Details the same project-local action dimensions", async () => {
     const user = userEvent.setup(); renderProjects();
     for (const language of ["es", "en"] as const) {
@@ -62,7 +78,7 @@ describe("project browsing", () => {
   it("filters every category and restores all projects", async () => {
     const user = userEvent.setup(); renderProjects();
     for (const [category, titles] of [
-      ["Comercio 2", ["DuoLuxe Essence", "Product Payment — ShopiFast"]],
+      ["Comercio 2", ["DuoLuxe Essence", "Product Payment - ShopiFast"]],
       ["IA y datos 2", ["Colombia Monitor", "KOA Verify"]],
       ["Gestión 3", ["EduNotas", "Optic-AI", "MyKondo"]],
     ] as const) {
@@ -93,7 +109,7 @@ describe("project browsing", () => {
     await user.click(screen.getByRole("button", { name: "Comercio 2" }));
     expect(screen.getByRole("link", { name: /Abrir demo de Product Payment/ })).toHaveAttribute("href", "https://d12hv8vhtndguc.cloudfront.net/");
     await user.click(screen.getByRole("button", { name: "+10 tecnologías" }));
-    const dialog = screen.getByRole("dialog", { name: "Product Payment — ShopiFast" });
+    const dialog = screen.getByRole("dialog", { name: "Product Payment - ShopiFast" });
     expect(dialog).toHaveTextContent("AWS RDS");
     expect(dialog).toHaveTextContent("arquitectura hexagonal");
     await user.click(within(dialog).getByRole("button", { name: "Close" }));
