@@ -1,3 +1,6 @@
+export const projectCategories = ["commerce", "ai-data", "management"] as const;
+export type ProjectCategory = (typeof projectCategories)[number];
+
 export const defaultLanguage = "es";
 
 export const languages = ["es", "en"] as const;
@@ -174,8 +177,16 @@ export const landingContent = {
       titlePrefix: "Proyectos",
       titleHighlight: "Destacados",
       description:
-        "Casos diseñados como sistemas: producto, datos, infraestructura y experiencia visual funcionando en una sola pieza.",
+        "Explora mis proyectos por categoría y elige cómo verlos.",
       moreLabel: "Ver más",
+      allLabel: "Todos",
+      categories: { commerce: "Comercio", "ai-data": "IA y datos", management: "Gestión" },
+      cardsLabel: "Tarjetas",
+      listLabel: "Lista",
+      resultCount: "{count} proyectos",
+      moreTechnologies: "+{count} tecnologías",
+      filterLabel: "Categorías de proyectos",
+      viewLabel: "Vista de proyectos",
     },
     projectActions: {
       detail: "Detalle",
@@ -203,6 +214,7 @@ export const landingContent = {
     },
     projects: [
       {
+        category: "ai-data",
         title: "Colombia Monitor",
         description:
           "Plataforma de monitoreo noticioso territorial que ingesta, clasifica y visualiza noticias locales con mapas, filtros y resumen asistido por IA.",
@@ -219,6 +231,7 @@ export const landingContent = {
         demoHref: "https://colombia-monitor-eight.vercel.app/ciudad/barranquilla/noticias",
       },
       {
+        category: "management",
         title: "EduNotas",
         description:
           "Sistema educativo con frontend Angular y API modular para gestión académica, contratos REST, validación de datos y despliegue con Docker.",
@@ -245,6 +258,7 @@ export const landingContent = {
         demoStatus: "offline",
       },
       {
+        category: "ai-data",
         title: "KOA Verify",
         description:
           "Prototipo autohospedado de verificación facial de identidad con captura guiada o carga de selfie y documento, validación de calidad de imagen en el servidor y comparación facial 1:1.",
@@ -262,6 +276,7 @@ export const landingContent = {
         demoHref: "https://retokoaverify.online/",
       },
       {
+        category: "commerce",
         title: "DuoLuxe Essence",
         description:
           "Monorepo premium para fragancias con landing pública, panel administrativo, catálogo, órdenes, clientes, WhatsApp y slider sincronizados desde Supabase.",
@@ -287,6 +302,7 @@ export const landingContent = {
         demoHref: "https://duoluxe.vercel.app/",
       },
       {
+        category: "management",
         title: "Optic-AI",
         description:
           "Plataforma clínico-administrativa multisede para ópticas con módulos de pacientes, historias clínicas, citas, RIPS, correos y auditoría.",
@@ -308,6 +324,7 @@ export const landingContent = {
         demoHref: "https://optic-ai-three.vercel.app/login",
       },
       {
+        category: "commerce",
         title: "Product Payment — ShopiFast",
         description:
           "Tienda de demostración con catálogo y checkout de un producto: cotizaciones del servidor, tokenización de tarjeta cifrada con JWE, pagos idempotentes y recuperación de estado. Frontend React/Vite con Redux Toolkit; API NestJS con arquitectura hexagonal, TypeORM y PostgreSQL. Despliegue AWS en S3/CloudFront, ECS Fargate y RDS, con pruebas Jest y CI/CD mediante GitHub Actions.",
@@ -327,6 +344,7 @@ export const landingContent = {
         demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
       },
       {
+        category: "management",
         title: "MyKondo",
         description:
           "Plataforma en desarrollo para la gestión operativa de conjuntos residenciales, con identidad multi-tenant, propiedades, bandeja de comunicaciones asistidas por IA y flujos de aprobación.",
@@ -678,8 +696,16 @@ export const landingContent = {
       titlePrefix: "Featured",
       titleHighlight: "Projects",
       description:
-        "Case studies designed as systems: product, data, infrastructure, and visual experience working as one piece.",
+        "Explore my projects by category and choose how to view them.",
       moreLabel: "View more",
+      allLabel: "All",
+      categories: { commerce: "Commerce", "ai-data": "AI & data", management: "Management" },
+      cardsLabel: "Cards",
+      listLabel: "List",
+      resultCount: "{count} projects",
+      moreTechnologies: "+{count} technologies",
+      filterLabel: "Project categories",
+      viewLabel: "Project view",
     },
     projectActions: {
       detail: "Details",
@@ -707,6 +733,7 @@ export const landingContent = {
     },
     projects: [
       {
+        category: "ai-data",
         title: "Colombia Monitor",
         description:
           "Territorial news monitoring platform that ingests, classifies, and visualizes local news with maps, filters, and AI-assisted summaries.",
@@ -723,6 +750,7 @@ export const landingContent = {
         demoHref: "https://colombia-monitor-eight.vercel.app/ciudad/barranquilla/noticias",
       },
       {
+        category: "management",
         title: "EduNotas",
         description:
           "Educational system with an Angular frontend and modular API for academic management, REST contracts, data validation, and Docker deployment.",
@@ -749,6 +777,7 @@ export const landingContent = {
         demoStatus: "offline",
       },
       {
+        category: "ai-data",
         title: "KOA Verify",
         description:
           "Self-hosted facial identity-verification prototype with guided selfie and document capture or upload, server-side image-quality validation, and 1:1 face comparison.",
@@ -766,6 +795,7 @@ export const landingContent = {
         demoHref: "https://retokoaverify.online/",
       },
       {
+        category: "commerce",
         title: "DuoLuxe Essence",
         description:
           "Premium fragrance monorepo with a public landing page, admin panel, catalog, orders, customers, WhatsApp, and sliders synchronized from Supabase.",
@@ -791,6 +821,7 @@ export const landingContent = {
         demoHref: "https://duoluxe.vercel.app/",
       },
       {
+        category: "management",
         title: "Optic-AI",
         description:
           "Multi-branch clinical and administrative platform for optical practices with patient, clinical history, appointment, RIPS, email, and audit modules.",
@@ -812,6 +843,7 @@ export const landingContent = {
         demoHref: "https://optic-ai-three.vercel.app/login",
       },
       {
+        category: "commerce",
         title: "Product Payment — ShopiFast",
         description:
           "Demo storefront with a product catalog and single-product checkout: server-calculated quotes, JWE-encrypted card tokenization, idempotent payments, and recoverable status. React/Vite frontend with Redux Toolkit; hexagonal NestJS API with TypeORM and PostgreSQL. AWS deployment on S3/CloudFront, ECS Fargate, and RDS, with Jest tests and GitHub Actions CI/CD.",
@@ -831,6 +863,7 @@ export const landingContent = {
         demoHref: "https://d12hv8vhtndguc.cloudfront.net/",
       },
       {
+        category: "management",
         title: "MyKondo",
         description:
           "A work-in-progress platform for residential community operations, with multi-tenant identity, properties, an AI-assisted communications inbox, and approval workflows.",

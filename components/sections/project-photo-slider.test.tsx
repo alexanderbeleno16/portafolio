@@ -22,9 +22,9 @@ vi.mock("@/components/language/language-provider", () => ({
 }));
 
 vi.mock("next/image", () => ({
-  default: ({ alt, src }: { alt: string; src: string }) =>
+  default: ({ alt, src, className }: { alt: string; src: string; className?: string }) =>
     // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} src={src} />,
+    <img alt={alt} src={src} className={className} />,
 }));
 
 class MockIntersectionObserver implements IntersectionObserver {
@@ -80,6 +80,14 @@ describe("ProjectPhotoSlider", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.unstubAllGlobals();
+  });
+
+  it("preserves screenshot colors and confines dark contrast to navigation controls", () => {
+    renderSlider();
+    const slider = screen.getByTestId("project-photo-slider");
+    expect(screen.getByRole("img", { name: "Project preview" })).not.toHaveClass("opacity-90");
+    expect(slider.querySelector(".bg-gradient-to-t")).toBeNull();
+    expect(screen.getByLabelText("Image 1 of 3 of Example")).toHaveClass("bg-background/70", "rounded-full");
   });
 
   it("autoplays only while intersecting, visible, and not interacting", () => {

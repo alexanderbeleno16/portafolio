@@ -148,9 +148,8 @@ export function ProjectPhotoSlider({
         alt={alt}
         fill
         sizes="(min-width: 1536px) 40rem, (min-width: 1024px) 46vw, 92vw"
-        className="project-photo-image object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+        className="project-photo-image object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/55 to-transparent" />
 
       {hasMultiplePhotos ? (
         <>
@@ -187,7 +186,7 @@ export function ProjectPhotoSlider({
           total: gallery.length,
           project: title,
         })}
-        className="absolute bottom-4 left-5 flex gap-1.5"
+        className="absolute bottom-4 left-5 flex gap-1.5 rounded-full bg-background/70 px-2.5 py-2 backdrop-blur-md"
       >
         {gallery.map((photo, index) => (
           <button
