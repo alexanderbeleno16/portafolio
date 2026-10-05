@@ -17,17 +17,17 @@ Existing two-column cards have long descriptions and many tags, with no filterin
 - Route delegated preparation (4+ files), delegated writer (3+ non-trivial production files). Parent owns design/QA, product decisions and task/mirror.
 - Strict TDD enabled by /home/alex/.gentle-ai/state.json strict_tdd=true. Runner npm test (Vitest/jsdom). Observe RED before implementation, GREEN then useful refactor.
 - RDD on/default; assess work-unit commit using baseline and committed-only; follow native returned transitions/consent, no fabricated review authority.
-- Delivery ask-on-risk; forecast320–390 authored additions+deletions excluding generated assets, running0. 400 is advisory planning heuristic, not code-golf criterion. If forecast/count exceeds budget, resolve chain choice before next commit. No remote action authorized.
+- Delivery ask-on-risk; forecast320–390 authored additions+deletions excluding generated assets, running317 authored changed lines at work-unit commit. 400 is advisory planning heuristic, not code-golf criterion. If forecast/count exceeds budget, resolve chain choice before next commit. No remote action authorized.
 
 ## Tasks
-- [ ] PV-1 Implement categorized project browser with compact card/list modes and localized accessible controls, tests and README. Route delegated; trigger3+ non-trivial files. Acceptance: all7 visible by default; counts2/2/3; filtering works in both modes; layout/category survive language change; full details and galleries retained; no overflow mobile; no fake demos; no source data loss. Checks: focused RED/GREEN, all tests/lint/typecheck/build/diff-check; local desktop/mobile category→list→detail→gallery interaction, console and screenshot QA. Work-unit commit and RDD outcome pending.
+- [x] PV-1 Implement categorized project browser with compact card/list modes and localized accessible controls, tests and README. Route delegated; trigger3+ non-trivial files. Acceptance: all7 visible by default; counts2/2/3; filtering works in both modes; layout/category survive language change; full details and galleries retained; no overflow mobile; no fake demos; no source data loss. Checks: focused RED/GREEN, all tests/lint/typecheck/build/diff-check; local desktop/mobile category→list→detail→gallery interaction, console and screenshot QA. Work-unit commit bbc3f92; native RDD medium/under_budget, review_due=false.
 
 ## Verification and progress
 - Mapping via CodeGraph completed. Existing components and content are enough; no global CSS required.
-- Visual concept being generated for the projects section only; record selected concept and fidelity ledger after inspection before writing source.
+- Visual concept inspected; selected specification and completed fidelity ledger recorded below.
 - Functional commands: npm test; npm run lint; npm run typecheck; npm run build.
 - Rollback boundary: new category/control content, projects-section controls and card layout changes with matching tests/docs; unrelated content untouched.
-- Next step: inspect concept, reconcile mirror, delegate RED-first writer and validate locally.
+- Next step: user reviews local project browser before authorizing any publication.
 
 ## Visual specification selected
 - Concept inspected: /home/alex/.codex/generated_images/01a107c0-f160-7d41-83ec-8eab2e0bf46c/exec-2cb39e32-d7f2-485b-b45e-429d0048942f.png (1041x1510).
@@ -43,4 +43,4 @@ Existing two-column cards have long descriptions and many tags, with no filterin
 - Fidelity ledger (concept and latest rendered screenshots inspected with view_image): heading/control copy matched; two-column vs one-column list geometry matched;22px/14px card typography and3line summaries matched; dark glass/cyan palette deliberately retains existing site tokens; image tint mismatch removed with control-only contrast; rounded frame/gap/CTA anatomy matched; mobile wrapping checked. Real assets/full original summaries/tags and correct Optic-AI category deliberately override concept inventions; no other material mismatch. Existing global section spacing/nav retained rather than changing unrelated layout.
 - QA screenshot evidence outside tracked source: /tmp/project-views-cards-final.jpg, /tmp/project-views-list-final.jpg, /tmp/project-views-mobile-final.jpg. Concept remains preview-only, not shipped UI.
 - Source/test/docs authored271 lines; task record additional (total forecast remains below400). Rollback scope as above. No remote operations performed.
-- Remaining: coherent local work-unit commit, native committed risk assessment, final user local review. Dev server already running at http://127.0.0.1:3000/#proyectos.
+- Completed local work-unit commit bbc3f92; native committed assessment medium/under_budget (317 lines), review_due=false; no reviewer run/approval fabricated. Remaining: user local review. Dev server already running at http://127.0.0.1:3000/#proyectos.
