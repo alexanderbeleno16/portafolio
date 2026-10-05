@@ -10,10 +10,10 @@ const HERO_EYEBROW_INTERVAL_MS = 5900;
 const eyebrowTexts = ["Build", "Measure", "Optimize"] as const;
 
 vi.mock("next/image", () => ({
-  default: ({ alt, className, src }: { alt: string; className?: string; src: string }) =>
+  default: ({ alt, className, src, sizes, priority }: { alt: string; className?: string; src: string; sizes?: string; priority?: boolean }) =>
     // Keep the mock small: these tests validate Hero visibility state, not Next image rendering.
     // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} className={className} src={src} />,
+    <img alt={alt} className={className} src={src} sizes={sizes} data-priority={priority} />,
 }));
 
 type ObserverCallback = IntersectionObserverCallback;
@@ -65,6 +65,13 @@ describe("HeroSection", () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it("caps the mobile portrait sizing hint while preserving its priority", () => {
+    renderHero();
+    const portrait = screen.getByRole("img");
+    expect(portrait).toHaveAttribute("sizes", "(min-width: 1536px) 36rem, (min-width: 1024px) 40vw, (min-width: 640px) 560px, (min-width: 390px) 288px, 74vw");
+    expect(portrait).toHaveAttribute("data-priority", "true");
   });
 
   it("renders active on the initial client render to match server markup", () => {

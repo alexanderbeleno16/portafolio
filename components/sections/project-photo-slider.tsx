@@ -14,6 +14,7 @@ type ProjectPhotoSliderProps = {
   gallery: readonly string[];
   alt: string;
   title: string;
+  sizes?: string;
 };
 
 function formatTemplate(template: string, values: Record<string, string | number>) {
@@ -27,6 +28,7 @@ export function ProjectPhotoSlider({
   gallery,
   alt,
   title,
+  sizes = "(min-width: 1320px) 602px, (min-width: 768px) calc(50vw - 58px), calc(100vw - 66px)",
 }: ProjectPhotoSliderProps) {
   const { content } = useLanguage();
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -147,7 +149,7 @@ export function ProjectPhotoSlider({
         src={activePhoto}
         alt={alt}
         fill
-        sizes="(min-width: 1536px) 40rem, (min-width: 1024px) 46vw, 92vw"
+        sizes={sizes}
         className="project-photo-image object-cover transition-transform duration-700 group-hover:scale-105"
       />
 

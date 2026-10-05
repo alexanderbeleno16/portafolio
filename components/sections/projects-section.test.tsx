@@ -7,9 +7,9 @@ import { ProjectsSection } from "@/components/sections/projects-section";
 import { landingContent } from "@/content/landing";
 
 vi.mock("next/image", () => ({
-  default: ({ alt, src }: { alt: string; src: string }) =>
+  default: ({ alt, src, sizes }: { alt: string; src: string; sizes?: string }) =>
     // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} src={src} />,
+    <img alt={alt} src={src} sizes={sizes} />,
 }));
 vi.mock("next/dynamic", () => ({
   default: () => function DetailStub({ project, onClose }: {
@@ -44,6 +44,17 @@ describe("project browsing", () => {
     const payment = screen.getAllByRole("article").find((article) => article.textContent?.includes("ShopiFast"))!;
     expect(within(payment).getByRole("button", { name: "+10 tecnologías" })).toBeInTheDocument();
     expect(within(payment).queryByText("AWS RDS")).not.toBeInTheDocument();
+  });
+
+  it("wires image sizing to the card grid and the fixed desktop list rail", async () => {
+    const user = userEvent.setup(); renderProjects();
+    for (const image of screen.getAllByRole("img")) {
+      expect(image).toHaveAttribute("sizes", "(min-width: 1320px) 602px, (min-width: 768px) calc(50vw - 58px), calc(100vw - 66px)");
+    }
+    await user.click(screen.getByRole("button", { name: "Lista" }));
+    for (const image of screen.getAllByRole("img")) {
+      expect(image).toHaveAttribute("sizes", "(min-width: 768px) 320px, calc(100vw - 66px)");
+    }
   });
 
   it("keeps an accessible icon-only layout switch at desktop breakpoints", async () => {

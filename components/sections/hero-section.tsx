@@ -67,7 +67,7 @@ export function HeroSection() {
               alt={hero.image.alt}
               fill
               priority
-              sizes="(min-width: 1536px) 36rem, (min-width: 1024px) 40vw, (min-width: 640px) 560px, 74vw"
+              sizes="(min-width: 1536px) 36rem, (min-width: 1024px) 40vw, (min-width: 640px) 560px, (min-width: 390px) 288px, 74vw"
               className="object-cover object-center opacity-95 saturate-110 transition duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />

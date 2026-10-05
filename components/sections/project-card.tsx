@@ -84,6 +84,9 @@ export function ProjectCard({ project, layout = "cards" }: {
             gallery={project.gallery}
             alt={project.alt}
             title={project.title}
+            sizes={layout === "list"
+              ? "(min-width: 768px) 320px, calc(100vw - 66px)"
+              : undefined}
           />
         </div>
 
