@@ -59,7 +59,7 @@ Existing two-column cards have long descriptions and many tags, with no filterin
 
 ## PV-3 accepted scope revision
 - User replaces compact mobile-list proposal: hide layout switch below md (768px, existing horizontal-list breakpoint); show icon-only switch on md+ with localized accessible names and hover titles. Mobile keeps existing stacked cards. Preserve categories, desktop state, ES/EN and galleries.
-- [ ] PV-3 Implement responsive icon-only layout switch. Route delegated writer/preparation; section, regression tests and README. Strict TDD enabled, npm test. Acceptance: no visible selector below768px; md+ controls are icon-only, named accessibly; cards/list still work; no unrelated layout changes. Checks: observed RED/GREEN, full tests/lint/typecheck/build, local browser mobile/desktop.
+- [x] PV-3 Implement responsive icon-only layout switch. Route delegated writer/preparation; section, regression tests and README. Strict TDD enabled, npm test. Acceptance: no visible selector below768px; md+ controls are icon-only, named accessibly; cards/list still work; no unrelated layout changes. Checks: observed RED/GREEN, full tests/lint/typecheck/build, local browser mobile/desktop.
 - Revised forecast25–45 authored lines; cumulative388 before this task. Delivery chain strategy unresolved; implementation authorized, no next commit until strategy resolved. No remote operations.
 - PV-3 implementation and functional verification observed: RED1failed/6passed, GREEN7passed; full45 tests/9files, lint/typecheck/build/diff passed. Source/test/docs30 authored lines. Browser localhost requested438x799: selector invisible;1440x1050: two icon-only40x40 buttons with Spanish accessible names, list then cards data-layout transitions observed; no console errors. Screenshots /tmp/project-switch-mobile.jpg and /tmp/project-switch-desktop.jpg. Viewport reset.
 - PV-3 remains unchecked only because work-unit commit/delivery strategy is pending user decision; code is available locally for review. No remote actions. Rollback section control utilities/markup, associated test and README sentence only.
@@ -67,3 +67,7 @@ Existing two-column cards have long descriptions and many tags, with no filterin
 ## Authorized delivery
 - User explicitly authorized push/merge to configured origin/main and Vercel publication, then accepted size:exception for single release (411 authored text lines before this delivery record). Delivery exception-ok; no chain required. Existing Git repository authentication authorized; no force push.
 - PV-3 functional/browser checks complete; release recheck45tests, lint,typecheck,build passed. Native RDD remains on/default; candidate consent unchanged.
+
+## Release review evidence
+- Work-unit d67146a closes PV-3 plus mechanical ShopiFast title/gallery corrections. Native reliability review approved with no findings, acknowledged lineage review-f1fa25ae1b9838fb at d67146a (415 authored text lines including delivery record). Reviewer read patches/tests and binary metadata; rendered geometry proof remains earlier local browser QA, not independently rerun by reviewer.
+- Full45 tests, lint,typecheck,build passed. User authorizes single size exception and push/merge publication. Next: normal fast-forward main and verify Vercel production.
