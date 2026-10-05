@@ -28,3 +28,4 @@ Next optimizer already active; hero priority, lazy project loading, paused offsc
 - Mobile hero286px rendered and384px selected; selector remains hidden. Category filter returns2 commerce projects; dynamic ShopiFast detail dialog waitsvisible and opens; zero console errors. Screenshot/tmp/portfolio-performance-list.jpg and/tmp/portfolio-performance-gallery.jpg. Requested viewports not asserted as benchmarknetwork/deviceDPR.
 - LCP/CLS/longtasks unavailable in CUA read-onlyscope; no globaltiming/frame-rate claim. Shape/filter animation changes deliberately deferred pendingtrace evidence. Originals, hero priority, lazyproject loading, offscreenpause retained.
 - Next: user local review; no remoteauthorization.
+- Work-unit15fad00; native RDD medium/under_budget (69 authored lines), review_due=false; no independent review run or approval claimed. Baseline stays1beb279 for pending slice. Working local branch only.
