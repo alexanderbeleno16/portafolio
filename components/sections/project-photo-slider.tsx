@@ -180,13 +180,14 @@ export function ProjectPhotoSlider({
         </>
       ) : null}
 
+      <div className="absolute bottom-4 left-5 right-5">
       <div
         aria-label={formatTemplate(content.projectActions.imageSetLabel, {
           index: safeActiveIndex + 1,
           total: gallery.length,
           project: title,
         })}
-        className="absolute bottom-4 left-5 flex gap-1.5 rounded-full bg-background/70 px-2.5 py-2 backdrop-blur-md"
+        className="flex w-fit max-w-full gap-1.5 rounded-full bg-background/70 px-2.5 py-2 backdrop-blur-md"
       >
         {gallery.map((photo, index) => (
           <button
@@ -199,13 +200,14 @@ export function ProjectPhotoSlider({
             aria-current={index === safeActiveIndex ? "true" : undefined}
             onClick={() => setActiveIndex(index)}
             className={cn(
-              "h-1.5 w-5 rounded-full transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary",
+              "h-1.5 w-5 min-w-0 max-w-5 flex-1 rounded-full transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tertiary",
               index === safeActiveIndex
                 ? "bg-tertiary shadow-[0_0_18px_rgba(76,215,246,0.42)]"
                 : "bg-white/25",
             )}
           />
         ))}
+      </div>
       </div>
     </div>
   );

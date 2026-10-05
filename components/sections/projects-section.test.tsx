@@ -46,6 +46,19 @@ describe("project browsing", () => {
     expect(within(payment).queryByText("AWS RDS")).not.toBeInTheDocument();
   });
 
+  it("gives Demo and Details the same project-local action dimensions", async () => {
+    const user = userEvent.setup(); renderProjects();
+    for (const language of ["es", "en"] as const) {
+      if (language === "en") await user.click(screen.getByRole("button", { name: "English" }));
+      const card = screen.getAllByRole("article").find((article) => article.textContent?.includes("Colombia Monitor"))!;
+      const demo = within(card).getByRole("link");
+      const detail = within(card).getAllByRole("button", { name: language === "es" ? "Ver detalle de Colombia Monitor" : "View details for Colombia Monitor" }).find((button) => button.textContent === (language === "es" ? "Detalle" : "Details"))!;
+      for (const action of [demo, detail]) {
+        expect(action).toHaveClass("h-10", "min-h-10!", "w-28", "px-0!", "rounded-xl");
+      }
+    }
+  });
+
   it("filters every category and restores all projects", async () => {
     const user = userEvent.setup(); renderProjects();
     for (const [category, titles] of [

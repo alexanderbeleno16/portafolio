@@ -82,6 +82,26 @@ describe("ProjectPhotoSlider", () => {
     vi.unstubAllGlobals();
   });
 
+  it("fits the short gallery pill to its indicators rather than stretching the dark background", () => {
+    renderSlider();
+    expect(screen.getByLabelText("Image 1 of 3 of Example")).toHaveClass("w-fit", "max-w-full");
+  });
+
+  it("bounds thirteen shrinkable indicators and keeps the final capture selectable", () => {
+    const longGallery = Array.from({ length: 13 }, (_, index) => `/capture-${index + 1}.png`);
+    render(<ProjectPhotoSlider gallery={longGallery} alt="Project preview" title="Example" />);
+    const indicators = screen.getByLabelText("Image 1 of 13 of Example");
+    expect(indicators.parentElement).toHaveClass("left-5", "right-5");
+    const finalIndicator = screen.getByRole("button", { name: "View image 13 of Example" });
+    for (const indicator of indicators.querySelectorAll("button")) {
+      expect(indicator).toHaveClass("min-w-0", "flex-1", "max-w-5");
+    }
+    expect(indicators.querySelectorAll("button")).toHaveLength(13);
+    fireEvent.click(finalIndicator);
+    expect(currentImageSource()).toBe("/capture-13.png");
+    expect(finalIndicator).toHaveAttribute("aria-current", "true");
+  });
+
   it("preserves screenshot colors and confines dark contrast to navigation controls", () => {
     renderSlider();
     const slider = screen.getByTestId("project-photo-slider");
