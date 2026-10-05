@@ -56,9 +56,9 @@ describe("KOA Verify portfolio content", () => {
 });
 
 const paymentGalleryAssets = [
-  "/projects/product-payment/catalog.jpg",
-  "/projects/product-payment/product-detail.jpg",
-  "/projects/product-payment/checkout.jpg",
+  "/projects/product-payment/catalog-hd.jpg",
+  "/projects/product-payment/product-detail-hd.jpg",
+  "/projects/product-payment/checkout-hd.jpg",
   "/projects/product-payment/payment-pending.png",
   "/projects/product-payment/payment-approved.png",
 ];
@@ -84,6 +84,7 @@ describe("Product Payment portfolio content", () => {
           "AWS CloudFront", "AWS ECS Fargate", "AWS RDS", "GitHub Actions",
         ],
       });
+      expect(project?.description?.split(":")[0]).toMatch(/AWS/);
       expect(project?.description).toMatch(/checkout/i);
       expect(project?.description).toMatch(/JWE/);
       expect(project?.description).toMatch(/AWS/);

@@ -36,7 +36,7 @@ Portafolio profesional de **Alexander Beleño**, ingeniero de sistemas enfocado 
 
 > Los enlaces de demo salen de `content/landing.ts`; si un proyecto no tiene `demoHref`, se documenta como offline en lugar de inventar una URL.
 
-Las capturas reales de ShopiFast están en `public/projects/product-payment/`: catálogo, detalle del producto y formulario de tarjeta y entrega sin enviar. Se reutilizan en el slider de la tarjeta y la galería del detalle, con contenido en español e inglés. La demo es un entorno de prueba; las capturas no implican un pago enviado ni una entrega verificada.
+Las capturas reales de ShopiFast están en `public/projects/product-payment/`: catálogo, detalle del producto y formulario de tarjeta y entrega sin enviar. Estas tres capturas se renovaron desde la demo pública de AWS con archivos JPEG nativos de al menos 1905px de ancho, guardados sin redimensionar ni recomprimir; los archivos `*-hd.jpg` evitan reutilizar variantes antiguas en caché. Las dos imágenes PNG de pago pendiente y aprobado proporcionadas por el usuario se conservan sin cambios. Se reutilizan en el slider de la tarjeta y la galería del detalle, con contenido en español e inglés. La demo es un entorno de prueba; las capturas no implican un pago enviado ni una entrega verificada.
 
 Los siete proyectos se pueden explorar con filtros de Comercio, IA y datos y Gestión. Desde 768px, el selector de iconos permite alternar tarjetas compactas y lista; en pantallas pequeñas se oculta porque ambas vistas se apilan. La selección se mantiene al cambiar de idioma. Cada resumen muestra hasta cuatro tecnologías; el contador adicional abre el detalle con la descripción, el stack completo y la galería original. Estas vistas no guardan preferencias ni cambian los enlaces de demo.
 
