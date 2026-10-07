@@ -93,3 +93,7 @@ Para consultoría, desarrollo o arquitectura de producto: [ing.alexbeleno@gmail.
 ## Responsive image delivery
 
 The hero keeps its priority image while respecting the 288px mobile portrait cap. Project thumbnails use layout-aware sizing hints: two-column cards from 768px and a 320px desktop list rail. Next.js serves optimized variants; project images remain lazy-loaded and original gallery assets stay unchanged. Local request-width and response-byte comparisons measure image delivery only, not overall LCP or animation performance.
+
+## Stack aligned with the linked CV
+
+The skills section follows the current publicly linked Google Drive CV, grouped into languages, frontend/mobile, backend/integration, databases, cloud/DevOps, architecture/practices and AI tooling. Existing portfolio technologies remain available. AWS, Google Cloud Platform, Azure AI and Azure Foundry reflect the CV without implying service-specific expertise, certifications or proficiency levels. The local PDF is not replaced by this synchronization.
